@@ -5,6 +5,7 @@ local proto = require("protocols.proto")
 
 echoInfo("in test_proto")
 
+echoInfo(proto.types)
 
 skynet.start (function ()
     

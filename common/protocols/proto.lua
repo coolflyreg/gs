@@ -7,12 +7,14 @@ local userguide = require("protocols.userguide")
 local player = require("protocols.player")
 ]]
 
-local protocols = {}
-protocols[0] = require("protocols.account")
-protocols[1] = require("protocols.gameserver")
-protocols[2] = require("protocols.userguide")
-protocols[3] = require("protocols.player")
---protocols[4] = require("protocols.campaign")
+local protocols = {
+    require("protocols.account"),
+    require("protocols.gameserver"),
+    require("protocols.userguide"),
+    require("protocols.player"),
+    require("protocols.characters")
+}
+--protocols[count++] = require("protocols.campaign")
 
 local sparser = require("sprotoparser")
 

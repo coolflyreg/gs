@@ -21,7 +21,7 @@ local types = [[
     name         11 : string # 队伍名称    
     money        12 : integer # 游戏货币    
     golden       13 : integer # 游戏代币    
-    boughtG      14: integer # 玩家总充值量    
+    boughtG      14 : integer # 玩家总充值量    
     rousing      15 : integer # 今日鼓舞次数    
     first        16 : integer # 玩家是否完成首冲    0 - 未完成  1 - 完成
     init         17 : integer # 玩家是否创建了队伍    0 - 未创建 1 - 创建了
