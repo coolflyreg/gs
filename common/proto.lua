@@ -30,4 +30,45 @@ local types = [[
 	init : integer -- 玩家是否创建了队伍	0 - 未创建 1 - 创建了
 }
 
+.character {
+	id : integer -- 玩家角色ID -- 
+	tid : string -- 角色ID -- 
+	level : integer -- 角色级别 -- 
+	exp : integer -- 经验 -- 
+	wuli : integer -- 武力 -- 
+	lingli : integer -- 灵力 -- 
+	minjie : integer -- 敏捷 -- 
+	qixue : integer -- 气血 -- 
+	fangyu : integer -- 防御 -- 
+	mingzhong : integer -- 命中 -- 
+	shanbi : integer -- 闪避 -- 
+	baoji : integer -- 暴击 -- 
+	kangbao : integer -- 抗暴 -- 
+	huixin : integer -- 会心 -- 
+	skillCapability : integer -- 神识 -- 
+	price : integer -- 战斗力 -- 
+	breakLevel : integer -- 突破级别 -- 
+	potential : integer -- 剩余潜力值 -- 
+	relation1 : integer -- 姻缘1是否开启 -- "0 - 未开启 1 - 开启"
+	relation2 : integer -- 姻缘2是否开启 -- "0 - 未开启 1 - 开启"
+	relation3 : integer -- 姻缘3是否开启 -- "0 - 未开启 1 - 开启"
+	relation4 : integer -- 姻缘4是否开启 -- "0 - 未开启 1 - 开启"
+	relation5 : integer -- 姻缘5是否开启 -- "0 - 未开启 1 - 开启"
+	relation6 : integer -- 姻缘6是否开启 -- "0 - 未开启 1 - 开启"
+}
+
+.equipment {
+	id : integer -- 玩家装备ID -- 
+	tid : String -- 装备ID -- 
+	cid : integer -- 玩家角色ID -- 
+	level : integer -- 装备级别 -- 
+	money : integer -- 升级所需货币 -- 
+	mainAttrValue : integer -- 主属性值 -- 
+	initValue : integer -- 初始 -- 
+	strongerValue : Float -- 成长 -- 
+	price : integer -- 战斗力 -- 
+	sprice : integer -- 已计算好的出售价格 -- 
+}
+
 ]]
+
