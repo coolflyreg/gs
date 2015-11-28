@@ -1,0 +1,29 @@
+skynet_root = "../3rd/skynet/"
+root = "./"
+common = "../common/"
+
+thread = 4  -- How many thread will be used
+bootstrap = "snlua bootstrap"  -- First service and params
+cpath = skynet_root.."cservice/?.so;"..root.."cservice/?.so"   -- The C module path
+
+-- logger = "server.log"  -- The log file name
+-- logservice = "syslog"  -- The log service
+logpath = "./logs"
+
+-- standalone = "0.0.0.0:8888"  -- Indicator this node is primary node
+-- master = "127.0.0.1:8888"    -- The control center node
+-- address = "127.0.0.1:3000"   -- 
+harbor = 0
+
+start = "main"
+
+lualoader = skynet_root.."lualib/loader.lua"
+luaservice = skynet_root.."service/?.lua;"..root.."test/?.lua"
+lua_path = skynet_root.."lualib/?.lua;"..common.."?.lua;"..common.."/lualib/?.lua"
+lua_cpath = skynet_root.."luaclib/?.so;"..root.."luaclib/?.so"
+--preload = 
+snax = skynet_root.."?.lua;"
+
+if "$OS" == "Linux" then 
+--	daemon = root .. "$SERVER_NAME" .. ".pid"
+end
