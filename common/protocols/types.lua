@@ -1,6 +1,3 @@
-local sparser = require("sprotoparser")
-
-local proto = {}
 
 local types = [[
 
@@ -203,7 +200,5 @@ local types = [[
 
 ]]
 
-proto.types = sparser.parse (types)
-
-return proto
+return types
 
