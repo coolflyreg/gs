@@ -6,8 +6,9 @@ local protocols = {
     require("protocols.userguide"),    -- 12XX
     require("protocols.player"),       -- 13XX
     require("protocols.characters"),   -- 15XX
-    require("protocols.equipment"),     -- 17XX
-    require("protocols.skill"),         -- 18XX
+    require("protocols.formation"),    -- 16XX
+    require("protocols.equipment"),    -- 17XX
+    require("protocols.skill"),        -- 18XX
 }
 --protocols[count++] = require("protocols.campaign")
 

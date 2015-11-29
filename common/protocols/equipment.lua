@@ -3,8 +3,6 @@
 local equipment = {}
 
 equipment.types = [[
-
-
 ]]
 
 equipment.c2s = [[

@@ -1,10 +1,8 @@
--- 用户向导信息（12XX） done
+-- 用户向导信息（12XX）
 
 local userguide = {}
 
 userguide.types = [[
-
-
 ]]
 
 userguide.c2s = [[

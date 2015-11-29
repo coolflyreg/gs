@@ -3,8 +3,6 @@
 local skill = {}
 
 skill.types = [[
-
-
 ]]
 
 skill.c2s = [[
