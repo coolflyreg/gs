@@ -1,18 +1,12 @@
 local baseTypes = require("protocols.types")
 
---[[]
-local account = require("protocols.account")
-local gameserver = require("protocols.gameserver")
-local userguide = require("protocols.userguide")
-local player = require("protocols.player")
-]]
-
 local protocols = {
-    require("protocols.account"),
-    require("protocols.gameserver"),
-    require("protocols.userguide"),
-    require("protocols.player"),
-    require("protocols.characters")
+    require("protocols.account"),      -- 10XX
+    require("protocols.gameserver"),   -- 11XX
+    require("protocols.userguide"),    -- 12XX
+    require("protocols.player"),       -- 13XX
+    require("protocols.characters"),    -- 15XX
+    require("protocols.equipment")     -- 17XX
 }
 --protocols[count++] = require("protocols.campaign")
 
@@ -40,6 +34,7 @@ end
 
 proto.types = types
 proto.c2s = sparser.parse (c2s)
+proto.s2c = sparser.parse (s2c)
 
 return proto
 
