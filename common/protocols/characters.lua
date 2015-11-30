@@ -26,11 +26,11 @@ characters.types = [[
 }
 
 .recuritInfo {    # 招募信息	
-        type      0 : integer # 招募类型	
-        count     1 : integer # 剩余免费次数	
-        itemCount 2 : integer # 金仙抽奖所需香火	
-        time      3 : integer # 距离下次免费剩余时间秒数
-        first     4 : integer # 是否首次付费抽取	"0 - 非首次 1 - 首次"
+    type      0 : integer # 招募类型	
+    count     1 : integer # 剩余免费次数	
+    itemCount 2 : integer # 金仙抽奖所需香火	
+    time      3 : integer # 距离下次免费剩余时间秒数
+    first     4 : integer # 是否首次付费抽取	"0 - 非首次 1 - 首次"
 }
 
 ]]

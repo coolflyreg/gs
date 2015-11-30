@@ -55,14 +55,16 @@ player.types = [[
 
 .other_player {    # 其他玩家信息
     id            0 : integer # 玩家ID
-    level         1 : integer # 斗法等级
-    total         2 : integer # 斗法总场数
-    win           3 : integer # 胜利场数
-    fail          4 : integer # 失败场数
-    price         5 : integer # 上阵总身价
-    characters    6 : *other_character # 上阵角色列表
-    formation     7 : other_formation # 阵法信息
-    beast         8 : beast # 神兽信息
+    name          1 : string  # 玩家名称
+    level         2 : integer # 斗法等级
+    exp           3 : integer # 经验值
+    total         4 : integer # 斗法总场数
+    win           5 : integer # 胜利场数
+    fail          6 : integer # 失败场数
+    price         7 : integer # 上阵总身价
+    characters    8 : *other_character # 上阵角色列表
+    formation     9 : other_formation # 阵法信息
+    beast        10 : beast # 神兽信息
 }
 
 .viplevel {    # VIP级别信息

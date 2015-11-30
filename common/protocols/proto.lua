@@ -9,6 +9,15 @@ local protocols = {
     require("protocols.formation"),    -- 16XX
     require("protocols.equipment"),    -- 17XX
     require("protocols.skill"),        -- 18XX
+    require("protocols.beast"),        -- 19XX
+    require("protocols.social"),       -- 20XX
+    require("protocols.fragment"),     -- 21XX
+    require("protocols.contest"),      -- 22XX
+    require("protocols.package"),      -- 23XX
+    require("protocols.shop"),         -- 24XX
+    require("protocols.assistant"),    -- 25XX
+    require("protocols.messages"),     -- 26XX
+    require("protocols.gifts"),        -- 27XX
 }
 --protocols[count++] = require("protocols.campaign")
 

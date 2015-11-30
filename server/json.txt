@@ -1,0 +1,1 @@
+{"playBonus":{"money":0,"exp":0},"enemyName":"拜月教主","win":0,"playerName":"少林寺","rewards":{"mballPiece":0},"characters":[["","","","","","",""],["","","","","","",""]],"stars":0,"reply":[[[0,0,"",0,0,[[2,10400,5000,9350,0]]],[0,0,"",0,0,{}],[0,0,"",0,0,{}],200,100]],"dual":0,"charStars":{},"charUpdated":{},"playerLevelUp":0,"serverTime":0,"charLevelUps":{}}

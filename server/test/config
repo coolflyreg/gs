@@ -1,3 +1,4 @@
+the3rd_root = "../3rd/"
 skynet_root = "../3rd/skynet/"
 root = "./"
 common = "../common/"
@@ -19,7 +20,7 @@ start = "main"
 
 lualoader = skynet_root.."lualib/loader.lua"
 luaservice = skynet_root.."service/?.lua;"..root.."test/?.lua"
-lua_path = skynet_root.."lualib/?.lua;"..common.."?.lua;"..common.."/lualib/?.lua"
+lua_path = skynet_root.."lualib/?.lua;"..common.."?.lua;"..common.."/lualib/?.lua;"..the3rd_root.."lua-cjson/lua/?.lua"
 lua_cpath = skynet_root.."luaclib/?.so;"..root.."luaclib/?.so"
 --preload = 
 snax = skynet_root.."?.lua;"
