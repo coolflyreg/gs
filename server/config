@@ -19,7 +19,7 @@ start = "main"
 
 lualoader = skynet_root.."lualib/loader.lua"
 luaservice = skynet_root.."service/?.lua;"..root.."service/?.lua"
-lua_path = skynet_root.."lualib/?.lua;"..root.."lualib/?.lua;"..root.."lualib/base/?.lua;"..common.."?.lua"
+lua_path = skynet_root.."lualib/?.lua;"..root.."lualib/?.lua;"..root.."lualib/base/?.lua;"..common.."?.lua;"..common.."lualib/?.lua"
 lua_cpath = skynet_root.."luaclib/?.so;"..root.."luaclib/?.so"
 --preload = 
 snax = skynet_root.."?.lua;"

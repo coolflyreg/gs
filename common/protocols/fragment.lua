@@ -48,7 +48,7 @@ fragment_combat 2103 {    # 开始掠夺战斗 - 2103
         name  2 : string # 玩家队伍名称
     }
     response {
-        # TODO to finish this
+        result 0 : string # 战斗结果json -- firghtReport
     }
 }
 

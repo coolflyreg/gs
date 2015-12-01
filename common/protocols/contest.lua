@@ -98,7 +98,7 @@ contest_rankCombat 2206 {    # 斗法排名战报战斗 - 2206
         id 0 : integer # 玩家ID
     }
     response {
-        # TODO To finish this
+        result 0 : string # 战斗结果json -- firghtReport
     }
 }
 
@@ -139,7 +139,17 @@ contest_combat 2210 {    # 斗法战斗 - 2210
         id 0 : integer # 玩家ID
     }
     response {
-        # TODO To finish this
+        level        0 : integer # 斗法级别    
+        rank         1 : integer # 排名    
+        exp          2 : integer # 斗法经验    
+        remainCount  3 : integer # 剩余斗法次数    
+        total        4 : integer # 斗法总场数    
+        win          5 : integer # 胜利场数    
+        fail         6 : integer # 失败场数    
+        fame         7 : integer # 声望    
+        fameTime     8 : integer # 下一次计算声望倒计时多少秒。    
+        gotDaily     9 : integer # 是否已领取每日奖励    "0 - 未领取 1 - 已领取"
+        result      10 : string # 战斗结果json -- firghtReport
     }
 }
 

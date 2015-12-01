@@ -98,7 +98,7 @@ social_combatReport 2005 {    # 获取战报战斗 - 2005
         id 0 : integer # 战报战斗ID
     }
     response {
-        # TODO to finish this
+        result 0 : string # 战斗结果json -- firghtReport
     }
 }
 
@@ -141,8 +141,8 @@ social_playerPK 2009 {    # 好友切磋和仇敌复仇 - 2009
         type 1 : integer # PK方式    "0 - 切磋 1 - 复仇"
     }
     response {
-        # TODO to finish this -- combat : Reference # 参见执行关卡 － 1402的响应部分。    
-        cd 0 : integer # 复仇冷却倒计时    如果类型为切磋，则此值为0
+        result 0 : string # 战斗结果json -- firghtReport
+        cd     1 : integer # 复仇冷却倒计时    如果类型为切磋，则此值为0
     }
 }
 

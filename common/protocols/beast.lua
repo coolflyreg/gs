@@ -91,7 +91,7 @@ magicball_combat 1909 {    # 获得灵珠的副本战斗 - 1909
         id 0 : string # 灵珠ID
     }
     response {
-        # TODO to finish this
+        result 0 : string # 战斗结果json -- firghtReport
     }
 }
 magicball_upgrade 1910 {    # 升级灵珠 - 1910

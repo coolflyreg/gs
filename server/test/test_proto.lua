@@ -7,8 +7,9 @@ local proto = require("protocols.proto")
 
 echoInfo("in test_proto")
 
---echoInfo(proto.types)
+echoInfo(proto.types)
 
+--[[
 local fightReport = require("fightReport")
 
 local round = fightReport.reply:newRound()
@@ -28,13 +29,14 @@ echoInfo("fightReport : "..fightReport:toJson())
 
 
 local file = nil
+]]
 --[[
 file = io.open("json.txt", "w");
 file:write(fightReport:toJson())
 file:flush()
 file:close()
 ]]
-
+--[[
 file = io.open("json.txt");
 file:seek("set")
 local content = file:read("a")
@@ -48,6 +50,7 @@ echoInfo("------------------------------------------")
 echoInfo("")
 
 echoInfo("fightReport : "..fightReport:toJson())
+]]
 
 skynet.start (function ()
     

@@ -16,7 +16,7 @@ gameserver.types = [[
 
 gameserver.c2s = [[
 
-gameserver_register 1101 {    # 获取服务器列表 - 1101
+gameserver_list 1101 {    # 获取服务器列表 - 1101
     response {
         servers 0 : *server(id)
     }

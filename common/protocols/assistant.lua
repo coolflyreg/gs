@@ -36,8 +36,21 @@ assistant_reward 2502 {    # 领取每日任务和成就的奖励 - 2502
         id 0 : string # 任务ID
     }
     response {
-        player 0 : player # 玩家信息
-        # TODO TO finish this  --         item : Reference # 参见2302响应结构
+        player       0 : player # 玩家信息
+        useCount     1 : integer # 当日使用次数    仅道具是人参果，仙桃，至尊令的情况下，此属性有效。
+        items        2 : *user_item # 道具数组    
+        equips       3 : *equipment # 装备数组    
+        formations   4 : *formation # 阵法数组    
+        skills       5 : *skill # 法宝数组    
+        magicball    6 : magicBall # 灵珠信息    
+        frags        7 : *user_fragment # 碎片数组
+        souls        8 : *soul # 魂魄数组    
+        ap           9 : integer # 行动点数    
+        mp          10 : integer # 元神点数    
+        money       11 : integer # 银币    
+        golden      12 : integer # 金币    
+        fame        13 : integer # 声望    
+        mpt         14 : integer # 魔晶 
     }
 }
 

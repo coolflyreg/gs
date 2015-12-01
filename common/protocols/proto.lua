@@ -5,6 +5,7 @@ local protocols = {
     require("protocols.gameserver"),   -- 11XX
     require("protocols.userguide"),    -- 12XX
     require("protocols.player"),       -- 13XX
+    require("protocols.campaign"),     -- 14XX
     require("protocols.characters"),   -- 15XX
     require("protocols.formation"),    -- 16XX
     require("protocols.equipment"),    -- 17XX
@@ -43,7 +44,7 @@ for i, v in ipairs(protocols) do
     s2c = s2c .. v.s2c
 end
 
-proto.types = types
+proto.types = sparser.parse(types)
 proto.c2s = sparser.parse (c2s)
 proto.s2c = sparser.parse (s2c)
 
