@@ -28,5 +28,5 @@ if "$OS" == "Linux" then
 --	daemon = root .. "$SERVER_NAME" .. ".pid"
 end
 if "$OS" == "Darwin" then
-	daemon = root .. "$SERVER_NAME" .. ".pid"
+--	daemon = root .. "$SERVER_NAME" .. ".pid"
 end

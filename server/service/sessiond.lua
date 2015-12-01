@@ -1,10 +1,19 @@
 local skynet = require("skynet")
+local syslog = require("syslog")
 
 local sessions = {}  -- Saved Sessions
 local CMD = {} -- Command list
 
 function CMD.save(fd, uid, uname, sessionid)
-    sessions[uid] = { fd = fd, uid = uid, uname = uname, sessionid = sessionid, beginTime = skynet.now() }
+    syslog.infof("sessiond.save uid = %s", uid)
+    sessions[uid] = {
+        fd = fd,
+        uid = uid,
+        uname = uname,
+        sessionid = sessionid,
+        beginTime = skynet.time()
+    }
+
     return sessions[uid]
 end
 
@@ -32,14 +41,3 @@ skynet.start(function()
         skynet.ret(skynet.pack(f(...)))
     end)
 end)
-
-
-
-
-
-
-
-
-
-
-
