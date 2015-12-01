@@ -96,7 +96,7 @@ characters_changeEquip 1505 {    # 变更装备 - 1505
     }
 }
 
-characters_UnassignEquip 1506 {    # 卸下装备 - 1506
+characters_unassignEquip 1506 {    # 卸下装备 - 1506
     request {
         id    0 : integer # 玩家角色ID
         eid   1 : integer # 玩家装备ID
@@ -132,7 +132,7 @@ characters_changeSkill 1508 {    # 更换法宝 - 1508
     }
 }
 
-characters_UnassignSkill 1509 {    # 卸下法宝 - 1509
+characters_unassignSkill 1509 {    # 卸下法宝 - 1509
     request {
         id    0 : integer # 玩家角色ID
         sid   1 : integer # 玩家法宝ID
