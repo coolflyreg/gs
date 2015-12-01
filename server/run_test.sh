@@ -3,4 +3,5 @@
 export SERVER_NAME=newfengshen
 export OS=$(uname -s)
 
-../3rd/skynet/skynet ./test/config
+export basepath=$(cd `dirname $0`; pwd)
+"$basepath/../3rd/skynet/skynet" "$basepath/test/config"
