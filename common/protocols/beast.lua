@@ -86,7 +86,7 @@ beast_activateBuff 1908 {    # 激活神兽的Buff技能 - 1908
         point      1 : integer # 剩余双修点数
     }
 }
-magicball_Combat 1909 {    # 获得灵珠的副本战斗 - 1909
+magicball_combat 1909 {    # 获得灵珠的副本战斗 - 1909
     request {
         id 0 : string # 灵珠ID
     }
@@ -94,7 +94,7 @@ magicball_Combat 1909 {    # 获得灵珠的副本战斗 - 1909
         # TODO to finish this
     }
 }
-magicball_Upgrade 1910 {    # 升级灵珠 - 1910
+magicball_upgrade 1910 {    # 升级灵珠 - 1910
     request {
         id    0 : integer # 玩家灵珠ID    
         type  1 : integer # 升级类型    "0 - 安配置升级1次 1 - 直接升1级，如果数量不够，用掉剩余所有碎片"
