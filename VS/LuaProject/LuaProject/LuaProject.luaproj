@@ -1,0 +1,140 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>E439935D-B2A2-46AE-856D-2AA408428F33</ProjectGuid>
+    <!--$guid1$-->
+    <ProjectHome>..\..\..\</ProjectHome>
+    <StartupFile>
+    </StartupFile>
+    <SearchPath>
+    </SearchPath>
+    <WorkingDirectory>.</WorkingDirectory>
+    <OutputPath>.</OutputPath>
+    <Name>LuaProject</Name>
+    <RootNamespace>LuaProject</RootNamespace>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <DebugSymbols>true</DebugSymbols>
+    <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <DebugSymbols>true</DebugSymbols>
+    <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
+  </PropertyGroup>
+  <ItemGroup>
+    <Folder Include="3rd\" />
+    <Folder Include="3rd\lua-cjson\" />
+    <Folder Include="3rd\lua-cjson\lua\" />
+    <Folder Include="3rd\lua-cjson\lua\cjson\" />
+    <Folder Include="3rd\lua-cjson\tests\" />
+    <Folder Include="client\" />
+    <Folder Include="common\" />
+    <Folder Include="common\lualib\" />
+    <Folder Include="common\protocols\" />
+    <Folder Include="server\" />
+    <Folder Include="server\lualib-src\" />
+    <Folder Include="server\lualib\" />
+    <Folder Include="server\service-src\" />
+    <Folder Include="server\service\" />
+    <Folder Include="server\test\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="3rd\lua-cjson\lua\cjson\util.lua" />
+    <Compile Include="3rd\lua-cjson\lua\json2lua.lua" />
+    <Compile Include="3rd\lua-cjson\lua\lua2json.lua" />
+    <Compile Include="3rd\lua-cjson\tests\bench.lua" />
+    <Compile Include="3rd\lua-cjson\tests\test.lua" />
+    <Compile Include="client\client.lua" />
+    <Compile Include="client\proto.lua" />
+    <Compile Include="common\lualib\debug_function.lua" />
+    <Compile Include="common\lualib\EventHandler.lua" />
+    <Compile Include="common\lualib\fightReport.lua" />
+    <Compile Include="common\lualib\framework.lua" />
+    <Compile Include="common\lualib\functions.lua" />
+    <Compile Include="common\lualib\LinkNode.lua" />
+    <Compile Include="common\protocols\account.lua" />
+    <Compile Include="common\protocols\activities %28not done%29.lua" />
+    <Compile Include="common\protocols\assistant.lua" />
+    <Compile Include="common\protocols\beast.lua" />
+    <Compile Include="common\protocols\campaign %28not done%29.lua" />
+    <Compile Include="common\protocols\characters.lua" />
+    <Compile Include="common\protocols\contest.lua" />
+    <Compile Include="common\protocols\equipment.lua" />
+    <Compile Include="common\protocols\formation.lua" />
+    <Compile Include="common\protocols\fragment.lua" />
+    <Compile Include="common\protocols\gameserver.lua" />
+    <Compile Include="common\protocols\gifts.lua" />
+    <Compile Include="common\protocols\iap %28not done%29.lua" />
+    <Compile Include="common\protocols\messages.lua" />
+    <Compile Include="common\protocols\package.lua" />
+    <Compile Include="common\protocols\player.lua" />
+    <Compile Include="common\protocols\proto.lua" />
+    <Compile Include="common\protocols\shop.lua" />
+    <Compile Include="common\protocols\skill.lua" />
+    <Compile Include="common\protocols\social.lua" />
+    <Compile Include="common\protocols\types.lua" />
+    <Compile Include="common\protocols\userguide.lua" />
+    <Compile Include="server\lualib\proto.lua" />
+    <Compile Include="server\service\agent.lua" />
+    <Compile Include="server\service\main.lua" />
+    <Compile Include="server\service\protoloader.lua" />
+    <Compile Include="server\service\simpledb.lua" />
+    <Compile Include="server\service\watchdog.lua" />
+    <Compile Include="server\test\main.lua" />
+    <Compile Include="server\test\test_proto.lua" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="3rd\lua-cjson\CMakeLists.txt" />
+    <Content Include="3rd\lua-cjson\dtoa.c" />
+    <Content Include="3rd\lua-cjson\dtoa_config.h" />
+    <Content Include="3rd\lua-cjson\fpconv.c" />
+    <Content Include="3rd\lua-cjson\fpconv.h" />
+    <Content Include="3rd\lua-cjson\g_fmt.c" />
+    <Content Include="3rd\lua-cjson\LICENSE" />
+    <Content Include="3rd\lua-cjson\lua-cjson-2.1.0-1.rockspec" />
+    <Content Include="3rd\lua-cjson\lua-cjson.spec" />
+    <Content Include="3rd\lua-cjson\lua_cjson.c" />
+    <Content Include="3rd\lua-cjson\Makefile" />
+    <Content Include="3rd\lua-cjson\manual.html" />
+    <Content Include="3rd\lua-cjson\manual.txt" />
+    <Content Include="3rd\lua-cjson\NEWS" />
+    <Content Include="3rd\lua-cjson\performance.html" />
+    <Content Include="3rd\lua-cjson\performance.txt" />
+    <Content Include="3rd\lua-cjson\rfc4627.txt" />
+    <Content Include="3rd\lua-cjson\runtests.sh" />
+    <Content Include="3rd\lua-cjson\strbuf.c" />
+    <Content Include="3rd\lua-cjson\strbuf.h" />
+    <Content Include="3rd\lua-cjson\tests\example1.json" />
+    <Content Include="3rd\lua-cjson\tests\example2.json" />
+    <Content Include="3rd\lua-cjson\tests\example3.json" />
+    <Content Include="3rd\lua-cjson\tests\example4.json" />
+    <Content Include="3rd\lua-cjson\tests\example5.json" />
+    <Content Include="3rd\lua-cjson\tests\genutf8.pl" />
+    <Content Include="3rd\lua-cjson\tests\numbers.json" />
+    <Content Include="3rd\lua-cjson\tests\octets-escaped.dat" />
+    <Content Include="3rd\lua-cjson\tests\README" />
+    <Content Include="3rd\lua-cjson\tests\rfc-example1.json" />
+    <Content Include="3rd\lua-cjson\tests\rfc-example2.json" />
+    <Content Include="3rd\lua-cjson\tests\types.json" />
+    <Content Include="3rd\lua-cjson\THANKS" />
+    <Content Include="3rd\openssl" />
+    <Content Include="3rd\skynet" />
+    <Content Include="client\run.sh" />
+    <Content Include="LICENSE" />
+    <Content Include="README.md" />
+    <Content Include="server\config" />
+    <Content Include="server\json.txt" />
+    <Content Include="server\kill.sh" />
+    <Content Include="server\lualib-src\lua-aes.c" />
+    <Content Include="server\lualib-src\lua-srp.c" />
+    <Content Include="server\lualib-src\lua-uuid.c" />
+    <Content Include="server\Makefile" />
+    <Content Include="server\run.sh" />
+    <Content Include="server\run_test.sh" />
+    <Content Include="server\service-src\service_syslog.c" />
+    <Content Include="server\test\config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.Common.targets" />
+</Project>
