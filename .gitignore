@@ -4,3 +4,6 @@
 .DS_Store
 /luaclib
 /cservice
+/VS/LuaProject/*.suo
+/VS/LuaProject/LuaProject/*.user
+/VS/LuaProject/LuaProject/obj
