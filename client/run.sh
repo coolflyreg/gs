@@ -1,4 +1,6 @@
 #!/bin/bash
 
-../3rd/skynet/3rd/lua/lua client.lua
+export basepath=$(cd `dirname $0`; pwd)
+cd "$basepath"
 
+"$basepath/../3rd/skynet/3rd/lua/lua" "$basepath/client.lua"

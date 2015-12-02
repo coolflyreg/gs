@@ -21,14 +21,14 @@ local function merge (dest, t)
     end
 end
 
-function handler:register (user)
+function handler:register (class)
     for _, f in pairs (self.init_func) do
-        f (user)
+        f (class)
     end
 
-    merge (user.REQUEST, self.request)
-    merge (user.RESPONSE, self.response)
-    merge (user.CMD, self.cmd)
+    merge (class.REQUEST, self.request)
+    merge (class.RESPONSE, self.response)
+    merge (class.CMD, self.cmd)
 end
 
 local function clean (dest, t)
@@ -38,10 +38,10 @@ local function clean (dest, t)
     end
 end
 
-function handler:unregister (user)
-    clean (user.REQUEST, self.request)
-    clean (user.RESPONSE, self.response)
-    clean (user.CMD, self.cmd)
+function handler:unregister (class)
+    clean (class.REQUEST, self.request)
+    clean (class.RESPONSE, self.response)
+    clean (class.CMD, self.cmd)
 end
 
 return handler

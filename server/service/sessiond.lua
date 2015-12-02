@@ -4,10 +4,9 @@ local syslog = require("syslog")
 local sessions = {}  -- Saved Sessions
 local CMD = {} -- Command list
 
-function CMD.save(fd, uid, uname, sessionid)
+function CMD.save(uid, uname, sessionid)
     syslog.infof("sessiond.save uid = %s", uid)
     sessions[uid] = {
-        fd = fd,
         uid = uid,
         uname = uname,
         sessionid = sessionid,

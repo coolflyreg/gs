@@ -9,11 +9,11 @@ if _VERSION ~= "Lua 5.3" then
 end
 
 local socket = require "clientsocket"
-local proto = require "proto"
+local proto = require "protocols.proto"
 local sproto = require "sproto"
 
-local host = sproto.new(proto.s2c):host "package"
-local request = host:attach(sproto.new(proto.c2s))
+local host = sproto.new(proto.login.s2c):host "package"
+local request = host:attach(sproto.new(proto.login.c2s))
 
 local fd = assert(socket.connect("127.0.0.1", 8888))
 
@@ -101,8 +101,8 @@ local function dispatch_package()
 	end
 end
 
-send_request("handshake")
-send_request("set", { what = "hello", value = "world" })
+send_request("account_register", { username = "gxtest", password = "123456" })
+--send_request("set", { what = "hello", value = "world" })
 while true do
 	dispatch_package()
 	local cmd = socket.readstdin()
