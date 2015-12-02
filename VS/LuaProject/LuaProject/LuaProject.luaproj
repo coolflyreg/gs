@@ -59,7 +59,6 @@
     <Compile Include="common\protocols\activities %28not done%29.lua" />
     <Compile Include="common\protocols\assistant.lua" />
     <Compile Include="common\protocols\beast.lua" />
-    <Compile Include="common\protocols\campaign %28not done%29.lua" />
     <Compile Include="common\protocols\characters.lua" />
     <Compile Include="common\protocols\contest.lua" />
     <Compile Include="common\protocols\equipment.lua" />
@@ -89,7 +88,6 @@
     <Compile Include="server\lualib\proto.lua" />
     <Compile Include="server\service\agent.lua" />
     <Compile Include="server\service\main.lua" />
-    <Compile Include="server\service\protoloader.lua" />
     <Compile Include="server\service\sessiond.lua" />
     <Compile Include="server\service\simpledb.lua" />
     <Compile Include="server\service\watchdog.lua" />
