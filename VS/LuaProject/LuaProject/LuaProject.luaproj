@@ -103,6 +103,7 @@
     <Compile Include="server\service\sessiond.lua" />
     <Compile Include="server\service\simpledb.lua" />
     <Compile Include="server\service\watchdog.lua" />
+    <Compile Include="server\test\client.lua" />
     <Compile Include="server\test\main.lua" />
     <Compile Include="server\test\test_proto.lua" />
   </ItemGroup>
@@ -156,10 +157,12 @@
     <Content Include="server\Makefile" />
     <Content Include="server\run.mingw.sh" />
     <Content Include="server\run.sh" />
+    <Content Include="server\run_client.mingw.sh" />
     <Content Include="server\run_test.mingw.sh" />
     <Content Include="server\run_test.sh" />
     <Content Include="server\service-src\service_syslog.c" />
     <Content Include="server\test\config" />
+    <Content Include="server\test\config.client.mingw" />
     <Content Include="server\test\config.mingw" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.Common.targets" />
