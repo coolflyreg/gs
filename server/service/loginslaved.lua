@@ -102,7 +102,7 @@ function CMD.listen(fd, address)
     assert (type == "REQUEST")
     log.infof("type = %s, name = %s, args = %s, response = %s", type, name, args, response)
 
-    local f = account_handler.request[name]
+    local f = assert(account_handler.request[name])
     local msg = response(f(args))
     send_msg(fd, msg)
 

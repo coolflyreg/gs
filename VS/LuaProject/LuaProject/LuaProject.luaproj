@@ -90,10 +90,12 @@
     <Compile Include="server\lualib\agent\skills_handler.lua" />
     <Compile Include="server\lualib\agent\socials_handler.lua" />
     <Compile Include="server\lualib\base\syslog.lua" />
+    <Compile Include="server\lualib\config\database.lua" />
     <Compile Include="server\lualib\config\system.lua" />
     <Compile Include="server\lualib\protoloader.lua" />
     <Compile Include="server\service\agent.lua" />
     <Compile Include="server\service\console.lua" />
+    <Compile Include="server\service\databased.lua" />
     <Compile Include="server\service\loginmasterd.lua" />
     <Compile Include="server\service\loginslaved.lua" />
     <Compile Include="server\service\main.lua" />
@@ -140,6 +142,7 @@
     <Content Include="3rd\lua-cjson\THANKS" />
     <Content Include="3rd\openssl" />
     <Content Include="3rd\skynet" />
+    <Content Include="client\run.mingw.sh" />
     <Content Include="client\run.sh" />
     <Content Include="LICENSE" />
     <Content Include="README.md" />

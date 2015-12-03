@@ -5,7 +5,7 @@ local sprotoloader = require "sprotoloader"
 local max_client = 64
 
 skynet.start(function()
-    local console = skynet.newservice("console")
+    --local console = skynet.newservice("console")
     skynet.newservice ("debug_console", 8000)
     skynet.uniqueservice("protocolsd")
     local sessiond = skynet.uniqueservice("sessiond")
