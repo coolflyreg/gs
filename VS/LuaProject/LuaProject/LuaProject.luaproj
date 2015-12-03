@@ -37,6 +37,8 @@
     <Folder Include="server\lualib-src\" />
     <Folder Include="server\lualib\" />
     <Folder Include="server\lualib\agent\" />
+    <Folder Include="server\lualib\base\" />
+    <Folder Include="server\lualib\config\" />
     <Folder Include="server\service-src\" />
     <Folder Include="server\service\" />
     <Folder Include="server\test\" />
@@ -48,7 +50,6 @@
     <Compile Include="3rd\lua-cjson\tests\bench.lua" />
     <Compile Include="3rd\lua-cjson\tests\test.lua" />
     <Compile Include="client\client.lua" />
-    <Compile Include="client\proto.lua" />
     <Compile Include="common\lualib\debug_function.lua" />
     <Compile Include="common\lualib\EventHandler.lua" />
     <Compile Include="common\lualib\fightReport.lua" />
@@ -59,6 +60,7 @@
     <Compile Include="common\protocols\activities %28not done%29.lua" />
     <Compile Include="common\protocols\assistant.lua" />
     <Compile Include="common\protocols\beast.lua" />
+    <Compile Include="common\protocols\campaign.lua" />
     <Compile Include="common\protocols\characters.lua" />
     <Compile Include="common\protocols\contest.lua" />
     <Compile Include="common\protocols\equipment.lua" />
@@ -76,18 +78,26 @@
     <Compile Include="common\protocols\social.lua" />
     <Compile Include="common\protocols\types.lua" />
     <Compile Include="common\protocols\userguide.lua" />
+    <Compile Include="server\lualib\agent\account_handler.lua" />
     <Compile Include="server\lualib\agent\beasts_handler.lua" />
     <Compile Include="server\lualib\agent\characters_handler.lua" />
     <Compile Include="server\lualib\agent\contests_handler.lua" />
     <Compile Include="server\lualib\agent\equipments_handler.lua" />
     <Compile Include="server\lualib\agent\formations_handler.lua" />
     <Compile Include="server\lualib\agent\fragments_handler.lua" />
+    <Compile Include="server\lualib\agent\handler.lua" />
     <Compile Include="server\lualib\agent\players_handler.lua" />
     <Compile Include="server\lualib\agent\skills_handler.lua" />
     <Compile Include="server\lualib\agent\socials_handler.lua" />
-    <Compile Include="server\lualib\proto.lua" />
+    <Compile Include="server\lualib\base\syslog.lua" />
+    <Compile Include="server\lualib\config\system.lua" />
+    <Compile Include="server\lualib\protoloader.lua" />
     <Compile Include="server\service\agent.lua" />
+    <Compile Include="server\service\console.lua" />
+    <Compile Include="server\service\loginmasterd.lua" />
+    <Compile Include="server\service\loginslaved.lua" />
     <Compile Include="server\service\main.lua" />
+    <Compile Include="server\service\protocolsd.lua" />
     <Compile Include="server\service\sessiond.lua" />
     <Compile Include="server\service\simpledb.lua" />
     <Compile Include="server\service\watchdog.lua" />
@@ -134,16 +144,20 @@
     <Content Include="LICENSE" />
     <Content Include="README.md" />
     <Content Include="server\config" />
+    <Content Include="server\config.mingw" />
     <Content Include="server\json.txt" />
     <Content Include="server\kill.sh" />
     <Content Include="server\lualib-src\lua-aes.c" />
     <Content Include="server\lualib-src\lua-srp.c" />
     <Content Include="server\lualib-src\lua-uuid.c" />
     <Content Include="server\Makefile" />
+    <Content Include="server\run.mingw.sh" />
     <Content Include="server\run.sh" />
+    <Content Include="server\run_test.mingw.sh" />
     <Content Include="server\run_test.sh" />
     <Content Include="server\service-src\service_syslog.c" />
     <Content Include="server\test\config" />
+    <Content Include="server\test\config.mingw" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.Common.targets" />
 </Project>
