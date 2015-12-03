@@ -20,7 +20,6 @@ local protocols = {
     require("protocols.messages"),     -- 26XX
     require("protocols.gifts"),        -- 27XX
 }
---protocols[count++] = require("protocols.campaign")
 
 local sparser = require("sprotoparser")
 

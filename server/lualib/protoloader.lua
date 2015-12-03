@@ -1,4 +1,4 @@
-local sprotoloader = require "sprotoloader"
+local sprotoloader = require "gssprotoloader"
 
 local proto = require("protocols.proto")
 
@@ -24,6 +24,10 @@ function loader.load (index)
     local host = sprotoloader.load (index):host "package"
     local request = host:attach (sprotoloader.load (index + 1))
     return host, request
+end
+
+function loader.getProto (index)
+    return sprotoloader.load (index)
 end
 
 return loader

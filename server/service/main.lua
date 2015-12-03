@@ -10,6 +10,8 @@ skynet.start(function()
     skynet.uniqueservice("protocolsd")
     local sessiond = skynet.uniqueservice("sessiond")
 
+    --local databased = skynet.uniqueservice("")
+
     local loginmaster = skynet.newservice("loginmasterd")
     skynet.call(loginmaster, "lua", "init", {
         count = 8,

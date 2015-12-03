@@ -3,7 +3,7 @@ local log = require "syslog"
 local socket = require "socket"
 local protoloader = require "protoloader"
 local account_handler = require "agent.account_handler"
-
+require "framework"
 -----------------------------------------------------
 
 local loginmasterd = 0
@@ -12,6 +12,22 @@ local protohost = nil
 local protorequest = nil
 local session_timeout = 30
 local connections = {}
+
+-----------------------------------------------------
+
+local function gen_response(self, response, session)
+	return function(args)
+		header_tmp.type = nil
+		header_tmp.session = session
+		local header = core.encode(self.__package, header_tmp)
+		if response then
+			local content = core.encode(response, args)
+			return core.pack(header .. content)
+		else
+			return core.pack(header)
+		end
+	end
+end
 
 -----------------------------------------------------
 
@@ -32,7 +48,8 @@ local function read_msg (fd)
 	local s = read (fd, 2)
 	local size = s:byte(1) * 256 + s:byte(2)
 	local msg = read (fd, size)
-	return protohost:dispatch (msg, size)
+
+	return protohost:dispatch (msg, size, "error")
 end
 
 local function send_msg (fd, msg)
@@ -98,20 +115,28 @@ function CMD.listen(fd, address)
     socket.start(fd)
     socket.limit(fd, 8192)
 
-    local type, name, args, response = read_msg (fd)
+    local type, name, args, response, err_response = read_msg (fd)
     assert (type == "REQUEST")
-    log.infof("type = %s, name = %s, args = %s, response = %s", type, name, args, response)
+    log.infof("type = %s, name = %s, args = %s, response = %s", type, name, args, response, err_response)
 
-    local f = assert(account_handler.request[name])
-    local msg = response(f(args))
-    send_msg(fd, msg)
+    local f = account_handler.request[name]
+    if (f) then
+        local result = f(args)
+        if result.errno then
+            local msg = err_response(result)
+            send_msg(fd, msg)
+        else
+            local msg = response(result)
+            send_msg(fd, msg)
+        end
+    end
 
     close(fd)
     connections[fd] = nil
 end
 
 function CMD.stop()
-
+    skynet.exit()
 end
 
 -----------------------------------------------------

@@ -1,7 +1,7 @@
 --package.cpath = "luaclib/?.so"
 --package.path = "lualib/?.lua;examples/?.lua"
 package.cpath = package.cpath .. ";../3rd/skynet/luaclib/?.so;../server/luaclib/?.so"
-package.path = package.path .. ";../3rd/skynet/lualib/?.lua;../common/?.lua"
+package.path = package.path .. ";../3rd/skynet/lualib/?.lua;../common/?.lua;../common/lualib/?.lua"
 
 
 if _VERSION ~= "Lua 5.3" then
@@ -10,7 +10,7 @@ end
 
 local socket = require "clientsocket"
 local proto = require "protocols.proto"
-local sproto = require "sproto"
+local sproto = require "gssproto"
 
 local host = sproto.new(proto.login.s2c):host "package"
 local request = host:attach(sproto.new(proto.login.c2s))
@@ -97,7 +97,7 @@ local function dispatch_package()
 			break
 		end
 
-		print_package(host:dispatch(v))
+		print_package(host:dispatch(v, 0, "error"))
 	end
 end
 

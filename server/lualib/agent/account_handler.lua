@@ -7,6 +7,7 @@ handler = handler.new(REQUEST)
 function REQUEST.account_register(args)
     --error("<Request.skill_all> Not Implemented")
     return { username = args.username }
+    -- return {errno = 1}
 end
 
 function REQUEST.account_auth(args)
