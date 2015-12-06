@@ -18,7 +18,7 @@ gameserver.c2s = [[
 
 gameserver_list 1101 {    # 获取服务器列表 - 1101
     response {
-        servers 0 : *server(id)
+        servers 0 : *server
     }
 }
 
@@ -35,15 +35,6 @@ gameserver_login 1102 {    # 登陆游戏逻辑服务器 - 1102
     }
 }
 
-gameserver_kick 1004 {    # 踢用户下线 - 1004
-    request {
-        uid 0 : integer # 用户uid
-    }
-    response {
-        uid 0 : integer # 用户uid
-    }
-}
-
 gameserver_heartbeat 1099 {    # 心跳包 - 1099
     request {
         uid       0 : integer # 用户中心uid
@@ -55,11 +46,18 @@ gameserver_heartbeat 1099 {    # 心跳包 - 1099
     }
 }
 
-
 ]]
 
 gameserver.s2c = [[
 
+gameserver_kick 1004 {    # 踢用户下线 - 1004
+    request {
+        uid 0 : integer # 用户uid
+    }
+    response {
+        uid 0 : integer # 用户uid
+    }
+}
 
 ]]
 

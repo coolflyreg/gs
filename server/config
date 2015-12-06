@@ -6,9 +6,9 @@ thread = 4  -- How many thread will be used
 bootstrap = "snlua bootstrap"  -- First service and params
 cpath = skynet_root.."cservice/?.so;"..root.."cservice/?.so"   -- The C module path
 
--- logger = "server.log"  -- The log file name
--- logservice = "syslog"  -- The log service
-logpath = "./logs"
+--logger = "server.log"  -- The log file name
+--logservice = "syslog"  -- The log service
+logpath = "./logs/"
 
 -- standalone = "0.0.0.0:8888"  -- Indicator this node is primary node
 -- master = "127.0.0.1:8888"    -- The control center node

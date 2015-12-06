@@ -2,8 +2,18 @@ local skynet = require "skynet"
 local log = require "syslog"
 local socket = require "socket"
 local protoloader = require "protoloader"
+local databases = require("db.databases")
 local account_handler = require "agent.account_handler"
+local gameserver_handler = require "agent.gameserver_handler"
 require "framework"
+-----------------------------------------------------
+
+local REQUEST = {}
+local RESPONSE = {}
+
+account_handler:register({ REQUEST = REQUEST, RESPONSE = RESPONSE })
+gameserver_handler:register({ REQUEST = REQUEST, RESPONSE = RESPONSE })
+
 -----------------------------------------------------
 
 local loginmasterd = 0
@@ -54,51 +64,22 @@ end
 
 local function send_msg (fd, msg)
 	local package = string.pack (">s2", msg)
+
+	print (package)
+	printHex(package)
+
 	socket.write (fd, package)
 end
 
 ----------------------------------------------------
 
-local function request(name, args, response)
-	local f = assert(account_handler.request[name])
-	local r = f(args)
-	if response then
-		return response(r)
-	end
-end
-
-----------------------------------------------------
-
-skynet.register_protocol({
-    name = "login",
-    id = skynet.PTYPE_CLIENT,
-    unpack = function (msg, sz)
-        return protohost:dispatch(msg, sz)
-    end,
-    dispatch = function (_, _, type, ...)
-        if type == "REQUEST" then
-            local ok, result  = pcall(request, ...)
-            if ok then
-                if result then
-                    send_msg(result)
-                end
-            else
-                skynet.error(result)
-            end
-        else
-            assert(type == "RESPONSE")
-            error "There is no protocol support request client"
-        end
-    end
-})
-----------------------------------------------------
-
 local CMD = {}
 
-function CMD.init(master, index, config)
+function CMD.init(master, index, config, dbconfig)
     loginmasterd = master
     slaveIndex = index
     session_timeout = config.session_timeout * 100
+	databases:init("account", dbconfig)
     protohost, protorequest = protoloader.load(protoloader.LOGIN)
 end
 
@@ -118,8 +99,7 @@ function CMD.listen(fd, address)
     local type, name, args, response, err_response = read_msg (fd)
     assert (type == "REQUEST")
     log.infof("type = %s, name = %s, args = %s, response = %s", type, name, args, response, err_response)
-
-    local f = account_handler.request[name]
+    local f = REQUEST[name]
     if (f) then
         local result = f(args)
         if result.errno then

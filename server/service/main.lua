@@ -8,9 +8,11 @@ skynet.start(function()
     --local console = skynet.newservice("console")
     skynet.newservice ("debug_console", 8000)
     skynet.uniqueservice("protocolsd")
+    local sharedata = require "sharedata"
     local sessiond = skynet.uniqueservice("sessiond")
 
-    --local databased = skynet.uniqueservice("")
+    local commondatad = skynet.uniqueservice("commondatad")
+    skynet.call(commondatad, "lua", "init")
 
     local loginmaster = skynet.newservice("loginmasterd")
     skynet.call(loginmaster, "lua", "init", {

@@ -9,7 +9,7 @@ static const char *
 check_msg (const char *msg, size_t sz, int *priority) {
 	if (sz < 2 || msg[1] != '|')
 		return msg;
-	switch (msg[0]) {
+	switch (msg[1]) {
 	case 'D':
 		*priority = LOG_DEBUG;
 		break;
@@ -46,4 +46,3 @@ syslog_init (void *inst, struct skynet_context *ctx, const char *ident) {
 	skynet_command (ctx, "REG", ".logger");
 	return 0;
 }
-

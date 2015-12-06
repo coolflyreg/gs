@@ -201,7 +201,7 @@ function printDisassembleHeader(name, title)
 end
 
 function printDisassembleFooter(name, title)
-    
+
     print ("----------------------------------")
     if (title) then
         print (name..": "..title.." End!")
@@ -250,21 +250,21 @@ function disassemble(obj, title)
             --print("disassemble: key =", k, ", v =", v)
         end
     end
-    
+
     if (cannotSort == false) then
         table.sort(o,
                    function(a, b)
                    return a.key < b.key
                    end);
     end
-               
+
     for i = 1, #o do
         echoInfo("disassemble: key = %-"..maxLength.."s value = %s", o[i].key, o[i].value)
         if (istable) then
             disassemble(o[i].value, string.format("1 of %s", title))
         end
     end
-   
+
     printDisassembleFooter("Disassemble", title)
 end
 
@@ -273,39 +273,47 @@ function diffAssemble(obj1, obj2, title)
 
     local pairsObj1 = nil
     local pairsObj2 = nil
-    
+
     if (type(obj1) == "table") then
         pairsObj1 = pairs(obj1)
     else
         pairsObj1 = pairs(getmetatable(obj1))
     end
-    
+
     if (type(obj2) == "table") then
         pairsObj2 = pairs(obj2)
         else
         pairsObj2 = pairs(getmetatable(obj2))
     end
-    
+
     local diff = {}
-    
+
     for k, v in pairsObj1 do
         if (pairsObj2[k] == nil) then
             diff[#diff + 1] = { target = obj1, key = k }
         end
     end
-    
+
     for k, v in pairsObj2 do
         if (pairsObj1[k] == nil) then
             diff[#diff + 1] = { target = obj2, key = k }
         end
     end
-    
+
     for i = 1, #diff do
         local tar = "obj1"
         if diff[i].target == obj2 then tar = "obj2" end
         echoInfo("%s[%s].%s", tar, diff[i].target, diff[i].key)
     end
-    
+
     printDisassembleFooter("Diff Assemble", title)
 end
 
+function printHex(str)
+    local index = 1
+    local buffer = ""
+    for index = 1, string.len(str) do
+        buffer = buffer..string.format("%02x ", string.byte(str, index))
+    end
+    print (buffer)
+end

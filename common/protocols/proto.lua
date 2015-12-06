@@ -47,8 +47,8 @@ proto.types = sparser.parse(types)
 proto.c2s = sparser.parse (c2s)
 proto.s2c = sparser.parse (s2c)
 proto.login = {
-    c2s = sparser.parse(baseTypes .. protocols[1].c2s),
-    s2c = sparser.parse(baseTypes .. protocols[1].s2c)
+    c2s = sparser.parse(types .. protocols[1].c2s .. protocols[2].c2s),
+    s2c = sparser.parse(types .. protocols[1].s2c .. protocols[2].s2c)
 }
 
 return proto

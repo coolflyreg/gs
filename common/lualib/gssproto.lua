@@ -58,6 +58,8 @@ local function querytype(self, typename)
 	return v
 end
 
+sproto.querytype = querytype
+
 function sproto:exist_type(typename)
 	local v = self.__tcache[typename]
 	if not v then
@@ -107,6 +109,8 @@ local function queryproto(self, pname)
 
 	return v
 end
+
+sproto.queryproto = queryproto
 
 function sproto:exist_proto(pname)
 	local v = self.__pcache[pname]
@@ -202,7 +206,7 @@ local function gen_err_response(self, tag, response, session)
 
 		local header_tmp2 = {}
 		local header2, size = core.decode(self.__package, header, header_tmp2)
-		dump (header2)
+		-- dump (header2)
 
 		if response then
 			local content = core.encode(response, args)
