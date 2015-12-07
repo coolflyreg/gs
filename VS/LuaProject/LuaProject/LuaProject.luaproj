@@ -39,6 +39,7 @@
     <Folder Include="server\lualib\agent\" />
     <Folder Include="server\lualib\base\" />
     <Folder Include="server\lualib\config\" />
+    <Folder Include="server\lualib\db\" />
     <Folder Include="server\service-src\" />
     <Folder Include="server\service\" />
     <Folder Include="server\test\" />
@@ -55,6 +56,8 @@
     <Compile Include="common\lualib\fightReport.lua" />
     <Compile Include="common\lualib\framework.lua" />
     <Compile Include="common\lualib\functions.lua" />
+    <Compile Include="common\lualib\gssproto.lua" />
+    <Compile Include="common\lualib\gssprotoloader.lua" />
     <Compile Include="common\lualib\LinkNode.lua" />
     <Compile Include="common\protocols\account.lua" />
     <Compile Include="common\protocols\activities %28not done%29.lua" />
@@ -64,6 +67,7 @@
     <Compile Include="common\protocols\characters.lua" />
     <Compile Include="common\protocols\contest.lua" />
     <Compile Include="common\protocols\equipment.lua" />
+    <Compile Include="common\protocols\errorcode.lua" />
     <Compile Include="common\protocols\formation.lua" />
     <Compile Include="common\protocols\fragment.lua" />
     <Compile Include="common\protocols\gameserver.lua" />
@@ -78,6 +82,7 @@
     <Compile Include="common\protocols\social.lua" />
     <Compile Include="common\protocols\types.lua" />
     <Compile Include="common\protocols\userguide.lua" />
+    <Compile Include="common\protocols\validator.lua" />
     <Compile Include="server\lualib\agent\account_handler.lua" />
     <Compile Include="server\lualib\agent\beasts_handler.lua" />
     <Compile Include="server\lualib\agent\characters_handler.lua" />
@@ -85,6 +90,7 @@
     <Compile Include="server\lualib\agent\equipments_handler.lua" />
     <Compile Include="server\lualib\agent\formations_handler.lua" />
     <Compile Include="server\lualib\agent\fragments_handler.lua" />
+    <Compile Include="server\lualib\agent\gameserver_handler.lua" />
     <Compile Include="server\lualib\agent\handler.lua" />
     <Compile Include="server\lualib\agent\players_handler.lua" />
     <Compile Include="server\lualib\agent\skills_handler.lua" />
@@ -92,10 +98,11 @@
     <Compile Include="server\lualib\base\syslog.lua" />
     <Compile Include="server\lualib\config\database.lua" />
     <Compile Include="server\lualib\config\system.lua" />
+    <Compile Include="server\lualib\db\databases.lua" />
     <Compile Include="server\lualib\protoloader.lua" />
     <Compile Include="server\service\agent.lua" />
+    <Compile Include="server\service\commondatad.lua" />
     <Compile Include="server\service\console.lua" />
-    <Compile Include="server\service\databased.lua" />
     <Compile Include="server\service\loginmasterd.lua" />
     <Compile Include="server\service\loginslaved.lua" />
     <Compile Include="server\service\main.lua" />
