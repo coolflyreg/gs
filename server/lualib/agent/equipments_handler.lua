@@ -1,5 +1,8 @@
 local skynet = require("skynet")
 local handler = require("agent.handler")
+local errorcode = require("protocols.errorcode")
+local validator = require("protocols.validator")
+local databases = require("db.databases")
 
 local REQUEST = {}
 handler = handler.new(REQUEST)
