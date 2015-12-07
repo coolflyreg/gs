@@ -311,8 +311,13 @@ end
 
 function printHex(str)
     local index = 1
-    local buffer = ""
+    local buffer = "\n"
     for index = 1, string.len(str) do
+        if ((index - 1) % 20 == 0) then
+            buffer = buffer.."\n"
+        elseif ((index - 1) % 4 == 0) then
+            buffer = buffer.."| "
+        end
         buffer = buffer..string.format("%02x ", string.byte(str, index))
     end
     print (buffer)

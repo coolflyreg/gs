@@ -65,6 +65,7 @@ end
 local function send_msg (fd, msg)
 	local package = string.pack (">s2", msg)
 
+	print ("will send length: "..(#package))
 	print (package)
 	printHex(package)
 

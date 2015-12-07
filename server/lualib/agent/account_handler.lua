@@ -1,4 +1,5 @@
 local skynet = require("skynet")
+local log = require "syslog"
 local handler = require("agent.handler")
 local errorcode = require("protocols.errorcode")
 local validator = require("protocols.validator")
@@ -26,8 +27,8 @@ function REQUEST.account_register(args)
 
     if (res and not res.badresult and #res > 0) then
         return { errno = errorcode.USER_ALREADY_EXISTS }
-    else
-        log.errorf("Execute SQL: %s, Reason: %s, errno: %d, sqlstate: %d", sql, res.err, res.errno, res.sqlstate)
+    elseif res.badresult then
+        log.errf("Execute SQL: %s, Reason: %s, errno: %d, sqlstate: %d", sql, res.err, res.errno, res.sqlstate)
         return { errno = errorcode.INTERNAL_ERROR }
     end
 
@@ -55,7 +56,7 @@ IF sql execute error, will receive the data as follow
     if not insertRes.badresult then
         local userId = insertRes.insert_id
     else
-        log.errorf("Execute SQL: %s, Reason: %s, errno: %d, sqlstate: %d", insertsql, insertRes.err, insertRes.errno, insertRes.sqlstate)
+        log.errf("Execute SQL: %s, Reason: %s, errno: %d, sqlstate: %d", insertsql, insertRes.err, insertRes.errno, insertRes.sqlstate)
         return { errno = errorcode.INTERNAL_ERROR }
     end
 
@@ -86,7 +87,7 @@ function REQUEST.account_auth(args)
     elseif (res and not res.badresult and #res == 0) then
         return { errno = errnocode.USER_DOES_NOT_EXISTS }
     else
-        log.errorf("Execute SQL: %s, Reason: %s, errno: %d, sqlstate: %d", sql, res.err, res.errno, res.sqlstate)
+        log.errf("Execute SQL: %s, Reason: %s, errno: %d, sqlstate: %d", sql, res.err, res.errno, res.sqlstate)
         return { errno = errorcode.INTERNAL_ERROR }
     end
 
@@ -95,7 +96,7 @@ function REQUEST.account_auth(args)
     if not insertRes.badresult then
 
     else
-        log.errorf("Execute SQL: %s, Reason: %s, errno: %d, sqlstate: %d", insertsql, insertRes.err, insertRes.errno, insertRes.sqlstate)
+        log.errf("Execute SQL: %s, Reason: %s, errno: %d, sqlstate: %d", insertsql, insertRes.err, insertRes.errno, insertRes.sqlstate)
         -- return { errno = errorcode.INTERNAL_ERROR }
     end
 

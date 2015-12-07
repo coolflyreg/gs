@@ -30,7 +30,7 @@ function COMMONDATA.server_list()
             return
         end
     else
-        log.errorf("Execute SQL: %s, Reason: %s, errno: %d, sqlstate: %d", sql, res.err, res.errno, res.sqlstate)
+        log.errf("Execute SQL: %s, Reason: %s, errno: %d, sqlstate: %d", sql, res.err, res.errno, res.sqlstate)
         return
     end
 

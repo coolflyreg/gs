@@ -17,7 +17,7 @@ databases = databases or {
         end
         local database = mysql.connect(config)
         if not database then
-            log.error("DB "..name.." connect failed.")
+            log.err("DB "..name.." connect failed.")
         else
             self.dbs[name] = database
         end

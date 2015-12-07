@@ -116,6 +116,7 @@ local function dispatch_package()
 			break
 		end
 
+		printHex(v)
 		local type, name, args, response, err_response = host:dispatch(v, 0, "error")
 		print_package(type, name, args, response, err_response )
 		if (currentMessage ~= nil) then
