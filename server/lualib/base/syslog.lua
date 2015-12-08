@@ -17,15 +17,19 @@ function syslog.level (lv)
 	level = lv
 end
 
+local function getTimeStamp()
+	return tostring(os.date("[%F %T]")) .. " "
+end
+
 local function write (priority, fmt, ...)
 	if priority >= level then
-		skynet.error (syslog.prefix[priority] .. fmt, ...)
+		skynet.error (getTimeStamp() .. syslog.prefix[priority] .. fmt, ...)
 	end
 end
 
 local function writef (priority, ...)
 	if priority >= level then
-		skynet.error (syslog.prefix[priority] .. string.format (...))
+		skynet.error (getTimeStamp() .. syslog.prefix[priority] .. string.format (...))
 	end
 end
 

@@ -7,7 +7,7 @@
 
 static const char *
 check_msg (const char *msg, size_t sz, int *priority) {
-	if (sz < 2 || msg[1] != '|')
+	if (sz < 5)
 		return msg;
 	switch (msg[1]) {
 	case 'D':

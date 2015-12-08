@@ -4,6 +4,44 @@ local errorcode = require("protocols.errorcode")
 local validator = require("protocols.validator")
 local databases = require("db.databases")
 
+--------------------------------------------------------------
+
+-- //return: -1参数错误; -3无缓存; 0正确; -2uid不存在
+-- static int cache_player_get(int uid, s_player_t *s_player)
+-- {
+--
+-- 	if(uid<=0 || !s_player) {
+-- 		return -1;
+-- 	}
+--
+-- 	if(g_cache_player_valid != 1) {
+-- 		return -3;
+-- 	}
+--
+-- 	int iret = 0;
+--
+-- 	if(memcache_get_data(g_cache_player, (void *)&uid, sizeof(int), 0, (void *)s_player) < 0) {
+--
+-- 		s_player_t *s_tmp = (s_player_t *)GCALLOC(1, sizeof(s_player_t));
+-- 		s_tmp->uid = uid;
+--
+-- 		iret = get_player_data_from_db(uid, s_tmp);
+-- 		if(iret == 0) {
+--
+-- 			if(memcache_append_data(g_cache_player, (void *)&s_tmp->uid, sizeof(int), (void *)s_tmp, sizeof(s_player_t)) < 0) {
+-- 				JOB_LOGGING(LOG_ERROR, "add uid(%d) player data to cache error, uid:%d", s_tmp->uid, uid);
+-- 				return -1;
+-- 			}
+--
+-- 			memcpy((void *)s_player, (void *)s_tmp, sizeof(s_player_t));
+-- 		}
+-- 	}
+--
+-- 	return iret;
+-- }
+
+--------------------------------------------------------------
+
 local REQUEST = {}
 handler = handler.new(REQUEST)
 
@@ -30,7 +68,7 @@ function REQUEST.player_create(args)
         return { success = 9 }
 --    elseif (keywords:containsIn(team_name) then -- TODO to finish the keyword system
 --        return { success = 2 }
-    else 
+    else
         return { success = 0 }
     end
 end
