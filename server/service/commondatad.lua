@@ -121,7 +121,7 @@ function COMMONDATA.player_levels()
         count = count + 1
     end
 
-    log.debugf("Load %d Player Level Infos", count)
+    log.debugf("Loads %d Player Level Infos", count)
     return "player_levels", data
 end
 
@@ -179,7 +179,7 @@ function COMMONDATA.vip_levels()
         count = count + 1
     end
 
-    log.debugf("Load %d Player VIP Level Infos", count)
+    log.debugf("Loads %d Player VIP Level Infos", count)
     return "vip_levels", data
 end
 
@@ -201,7 +201,7 @@ function COMMONDATA.system_params ()
         return
     end
 
-    log.debugf("Load %d System Params.", #res)
+    log.debugf("Loads %d System Params.", #res)
     return "system_params", res
 end
 

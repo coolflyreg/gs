@@ -11,9 +11,8 @@ function CMD.init(config)
     log.infof("Starting %d loginslaved", slaveCount)
 
     for i = 1, slaveCount do
-        local databaseConfig = require("config.database")
         local slave = skynet.newservice("loginslaved")
-        skynet.call(slave, "lua", "init", skynet.self(), i, config, databaseConfig.account)
+        skynet.call(slave, "lua", "init", skynet.self(), i, config, "account")
         table.insert(loginslaveds, slave)
     end
 

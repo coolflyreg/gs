@@ -2,34 +2,28 @@ local skynet = require("skynet")
 local log = require "syslog"
 local mysql = require "mysql"
 
-databases = databases or {
-    dbs = {},
-    init = function(self, name, config)
+local service
 
-        if (self.dbs[name]) then
-            log.warningf("DB %s Connection is existing.", name)
-            return
-        end
+skynet.init(function()
+    service = skynet.uniqueservice("databased")
+end)
 
-        config.on_connect = function(db)
-            db:query("set charset utf8")
-            log.info("DB "..name.." is Connected!")
-        end
-        local database = mysql.connect(config)
-        if not database then
-            log.err("DB "..name.." connect failed.")
-        else
-            self.dbs[name] = database
-        end
-    end,
+local databases = {}
 
-    get = function(self, name)
-        if (self.dbs[name]) then
-            return assert(self.dbs[name])
-        end
-
-        return nil
+function databases.init(self, name, config, poolsize)
+    if (not poolsize) then
+        poolsize = 5
     end
-}
+    skynet.call(service, "lua", "init", name, config, poolsize)
+end
+
+function databases.get(self, name)
+    local dbProxy = { name = name }
+    dbProxy.query = function(self, sql)
+        return skynet.call(service, "lua", "query", self.name, sql)
+    end
+
+    return dbProxy
+end
 
 return databases

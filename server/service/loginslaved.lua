@@ -2,9 +2,9 @@ local skynet = require "skynet"
 local log = require "syslog"
 local socket = require "socket"
 local protoloader = require "protoloader"
-local databases = require("db.databases")
 local account_handler = require "agent.account_handler"
 local gameserver_handler = require "agent.gameserver_handler"
+local json = require "cjson"
 require "framework"
 -----------------------------------------------------
 
@@ -59,6 +59,10 @@ local function read_msg (fd)
 	local size = s:byte(1) * 256 + s:byte(2)
 	local msg = read (fd, size)
 
+	print ("Did receive length: "..(size))
+	-- print (s..msg)
+	printHex(s..msg)
+
 	return protohost:dispatch (msg, size, "error")
 end
 
@@ -76,11 +80,10 @@ end
 
 local CMD = {}
 
-function CMD.init(master, index, config, dbconfig)
+function CMD.init(master, index, config, dbname)
     loginmasterd = master
     slaveIndex = index
     session_timeout = config.session_timeout * 100
-	databases:init("account", dbconfig)
     protohost, protorequest = protoloader.load(protoloader.LOGIN)
 end
 
@@ -99,7 +102,8 @@ function CMD.listen(fd, address)
 
     local type, name, args, response, err_response = read_msg (fd)
     assert (type == "REQUEST")
-    log.infof("type = %s, name = %s, args = %s, response = %s", type, name, args, response, err_response)
+	dump(args)
+    log.debugf("type = %s, name = %s, args = %s, response = %s", type, name, json.encode(args), response, err_response)
     local f = REQUEST[name]
     if (f) then
         local result = f(args)
