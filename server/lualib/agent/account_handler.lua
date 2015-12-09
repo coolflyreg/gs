@@ -10,7 +10,6 @@ require "framework"
 local REQUEST = {}
 handler = handler.new(REQUEST)
 
-
 function REQUEST.account_register(args)
     local username = args.username
     local password = args.password

@@ -2,23 +2,34 @@ local skynet = require "skynet"
 
 local service
 
-skynet.start(function()
+skynet.init(function()
     service = skynet.uniqueservice("cachedatad")
 end)
 
 local cachedata = {}
 
 function cachedata.register(key, func_get, func_update, func_remove)
-    --skynet.call(service, "lua", "register", key, )
+    skynet.call(service, "lua", "register", key, func_get, func_update, func_remove)
+end
+
+function cachedata.exists(key)
+    return skynet.call(service, "lua", "exists", key)
 end
 
 function cachedata.get(key)
-end
+    local proxy = { key = key }
 
-function cachedata.update(key, obj)
-end
+    proxy.get = function(self, ...)
+        skynet.call(service, "lua", "get", self.key, ...)
+    end
 
-function cachedata.remove(key)
+    proxy.update = function(self, ...)
+        skynet.call(service, "lua", "update", self.key, ...)
+    end
+
+    proxy.remove = function(self, ...)
+        skynet.call(service, "lua", "remove", self.key, ...)
+    end
 end
 
 

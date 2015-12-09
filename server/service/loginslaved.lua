@@ -11,9 +11,6 @@ require "framework"
 local REQUEST = {}
 local RESPONSE = {}
 
-account_handler:register({ REQUEST = REQUEST, RESPONSE = RESPONSE })
-gameserver_handler:register({ REQUEST = REQUEST, RESPONSE = RESPONSE })
-
 -----------------------------------------------------
 
 local loginmasterd = 0
@@ -85,6 +82,9 @@ function CMD.init(master, index, config, dbname)
     slaveIndex = index
     session_timeout = config.session_timeout * 100
     protohost, protorequest = protoloader.load(protoloader.LOGIN)
+
+	account_handler:register({ REQUEST = REQUEST, RESPONSE = RESPONSE })
+	gameserver_handler:register({ REQUEST = REQUEST, RESPONSE = RESPONSE })
 end
 
 function CMD.listen(fd, address)

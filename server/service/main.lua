@@ -1,6 +1,7 @@
 require("framework")
 local skynet = require "skynet"
 local sprotoloader = require "sprotoloader"
+local cachedata = require "cachedata"
 
 local max_client = 64
 
@@ -10,7 +11,7 @@ skynet.start(function()
     skynet.uniqueservice("protocolsd")
     local sharedata = require "sharedata"
     local sessiond = skynet.uniqueservice("sessiond")
-
+    local cachedatad = skynet.uniqueservice("cachedatad")
     local commondatad = skynet.uniqueservice("commondatad")
     skynet.call(commondatad, "lua", "init")
 

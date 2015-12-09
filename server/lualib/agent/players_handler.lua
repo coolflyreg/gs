@@ -3,6 +3,7 @@ local handler = require("agent.handler")
 local errorcode = require("protocols.errorcode")
 local validator = require("protocols.validator")
 local databases = require("db.databases")
+local cache = require("cachedata")
 
 --------------------------------------------------------------
 
@@ -44,6 +45,12 @@ local databases = require("db.databases")
 
 local REQUEST = {}
 handler = handler.new(REQUEST)
+
+handler:init(function()
+    if (not cache.exists("player")) then
+        cache.register("player", "cache.player.get", "cache.player.update", "cache.player.remove")
+    end
+end)
 
 function REQUEST.player_names()
     error("<Request.player_names> Not Implemented")
