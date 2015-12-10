@@ -16,8 +16,8 @@ local errorcode = require "protocols.errorcode"
 
 require ("framework")
 
-local host = sproto.new(proto.login.s2c):host "package"
-local request = host:attach(sproto.new(proto.login.c2s))
+local host = sproto.new(proto.s2c):host "package"
+local request = host:attach(sproto.new(proto.c2s))
 
 local fd = assert(socket.connect("127.0.0.1", 8888))
 
@@ -137,6 +137,7 @@ local requests = {
 	{ name = "account_auth", value = { username = "gxtest", password = "123456" } },
 	{ name = "account_auth", value = { username = "gxtest", password = "654321" } },
 	{ name = "gameserver_list", value = nil },
+	{ name = "player_names", value = nil },
 }
 -- while (#requests > 0) do
 if (#requests > 0) then

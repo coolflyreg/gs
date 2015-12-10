@@ -4,6 +4,7 @@ local socket = require "socket"
 local protoloader = require "protoloader"
 local account_handler = require "agent.account_handler"
 local gameserver_handler = require "agent.gameserver_handler"
+local players_handler = require "agent.players_handler"
 local json = require "cjson"
 require "framework"
 -----------------------------------------------------
@@ -81,10 +82,11 @@ function CMD.init(master, index, config, dbname)
     loginmasterd = master
     slaveIndex = index
     session_timeout = config.session_timeout * 100
-    protohost, protorequest = protoloader.load(protoloader.LOGIN)
+    protohost, protorequest = protoloader.load(protoloader.GAME)
 
 	account_handler:register({ REQUEST = REQUEST, RESPONSE = RESPONSE })
 	gameserver_handler:register({ REQUEST = REQUEST, RESPONSE = RESPONSE })
+	players_handler:register({ REQUEST = REQUEST, RESPONSE = RESPONSE })
 end
 
 function CMD.listen(fd, address)
@@ -100,21 +102,26 @@ function CMD.listen(fd, address)
     socket.start(fd)
     socket.limit(fd, 8192)
 
-    local type, name, args, response, err_response = read_msg (fd)
-    assert (type == "REQUEST")
-	dump(args)
-    log.debugf("type = %s, name = %s, args = %s, response = %s", type, name, json.encode(args), response, err_response)
-    local f = REQUEST[name]
-    if (f) then
-        local result = f(args)
-        if result.errno then
-            local msg = err_response(result)
-            send_msg(fd, msg)
-        else
-            local msg = response(result)
-            send_msg(fd, msg)
-        end
-    end
+    local ok, type, name, args, response, err_response = pcall(read_msg, fd)
+
+	if (ok) then
+	    assert (type == "REQUEST")
+		dump(args)
+	    log.debugf("type = %s, name = %s, args = %s, response = %s", type, name, json.encode(args), response, err_response)
+	    local f = REQUEST[name]
+	    if (f) then
+	        local result = f(args)
+	        if result.errno then
+	            local msg = err_response(result)
+	            send_msg(fd, msg)
+	        else
+	            local msg = response(result)
+	            send_msg(fd, msg)
+	        end
+	    end
+	else
+		log.warningf("Can't solve protocol : %s", type)
+	end
 
     close(fd)
     connections[fd] = nil

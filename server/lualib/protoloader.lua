@@ -4,6 +4,7 @@ local proto = require("protocols.proto")
 
 local loader = {
     TYPES = 0,
+    GAME = 1,
     C2S = 1,
     S2C = 2,
     LOGIN = 3,

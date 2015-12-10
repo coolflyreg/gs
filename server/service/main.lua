@@ -17,7 +17,7 @@ skynet.start(function()
 
     local loginmaster = skynet.newservice("loginmasterd")
     skynet.call(loginmaster, "lua", "init", {
-        count = 8,
+        count = 2,
         host = "0.0.0.0",
         port = 8888,
         session_timeout = 30, -- second

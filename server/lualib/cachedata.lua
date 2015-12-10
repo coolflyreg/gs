@@ -30,6 +30,8 @@ function cachedata.get(key)
     proxy.remove = function(self, ...)
         skynet.call(service, "lua", "remove", self.key, ...)
     end
+
+    return proxy
 end
 
 
