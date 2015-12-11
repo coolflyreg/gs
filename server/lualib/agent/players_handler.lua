@@ -4,6 +4,8 @@ local errorcode = require("protocols.errorcode")
 local validator = require("protocols.validator")
 local databases = require("db.databases")
 local cache = require("cachedata")
+local playernamesCache = require("cache.playernames")
+local playerCache = require("cache.players")
 local log = require("syslog")
 
 --------------------------------------------------------------
@@ -47,21 +49,21 @@ local log = require("syslog")
 local REQUEST = {}
 handler = handler.new(REQUEST)
 
-handler:init(function()
-    if (not cache.exists("player")) then
-        cache.register("player", "cache.player.get", "cache.player.update", "cache.player.remove")
-    end
-    if (not cache.exists("playernames")) then
-        cache.register("playernames", "cache.playernames.get", nil, nil)
-    end
-end)
+-- handler:init(function()
+--     if (not cache.exists("player")) then
+--         cache.register("player", "cache.player.get", "cache.player.update", "cache.player.remove")
+--     end
+--     if (not cache.exists("playernames")) then
+--         cache.register("playernames", "cache.playernames.get", nil, nil)
+--     end
+-- end)
 
 function REQUEST.player_names()
+    local names = playernamesCache.getPlayerNames()
 
-    local cacheObj = cache.get("playernames")
-    cacheObj:get("names")
+    -- dump(names)
 
-    return {names={}}
+    return {names=nil}
 end
 
 function REQUEST.player_create(args)

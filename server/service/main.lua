@@ -2,6 +2,8 @@ require("framework")
 local skynet = require "skynet"
 local sprotoloader = require "sprotoloader"
 local cachedata = require "cachedata"
+local databases = require "db.databases"
+local databaseConfig = require("config.database")
 
 local max_client = 64
 
@@ -9,6 +11,17 @@ skynet.start(function()
     --local console = skynet.newservice("console")
     skynet.newservice ("debug_console", 8000)
     skynet.uniqueservice("protocolsd")
+
+    if (databaseConfig.account ~= nil) then
+        databases:init("account", databaseConfig.account)
+    end
+    if (databaseConfig.gameinfo ~= nil) then
+        databases:init("gameinfo", databaseConfig.gameinfo)
+    end
+    if (databaseConfig.game ~= nil) then
+        databases:init("game", databaseConfig.game)
+    end
+
     local sharedata = require "sharedata"
     local sessiond = skynet.uniqueservice("sessiond")
     local cachedatad = skynet.uniqueservice("cachedatad")

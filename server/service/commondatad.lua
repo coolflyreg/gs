@@ -210,10 +210,6 @@ end
 local CMD = {}
 
 function CMD.init()
-    local databaseConfig = require("config.database")
-    databases:init("account", databaseConfig.account)
-    databases:init("gameinfo", databaseConfig.gameinfo)
-
     for k, v in pairs(COMMONDATA) do
         if (type(v) == "function") then
             local name, data = v()

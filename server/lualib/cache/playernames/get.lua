@@ -1,12 +1,13 @@
-local skynet = require("skynet")
-
-local databases
-
-skynet.init(function()
-    databases = require("db.databases")
-end)
+-- local skynet = require("skynet")
+--
+-- local databases
+--
+-- skynet.init(function()
+--     databases = require("db.databases")
+-- end)
 
 local function getPlayerNamesFromDatabase(...)
+    local databases = require("db.databases")
 
     local log = require("syslog")
     require("framework")

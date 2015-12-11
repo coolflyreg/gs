@@ -45,7 +45,7 @@ end
 require("framework")
 function CMD.query(name, sql)
     local dbpool = _dbPools[name]
-    if (not pool) then
+    if (not dbpool) then
         error(string.format("There is no database for \"%s\"", name))
         return
     end

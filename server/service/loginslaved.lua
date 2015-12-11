@@ -6,11 +6,16 @@ local account_handler = require "agent.account_handler"
 local gameserver_handler = require "agent.gameserver_handler"
 local players_handler = require "agent.players_handler"
 local json = require "cjson"
+local profile = require "profile"
 require "framework"
 -----------------------------------------------------
 
 local REQUEST = {}
 local RESPONSE = {}
+
+account_handler:register({ REQUEST = REQUEST, RESPONSE = RESPONSE })
+gameserver_handler:register({ REQUEST = REQUEST, RESPONSE = RESPONSE })
+players_handler:register({ REQUEST = REQUEST, RESPONSE = RESPONSE })
 
 -----------------------------------------------------
 
@@ -83,10 +88,6 @@ function CMD.init(master, index, config, dbname)
     slaveIndex = index
     session_timeout = config.session_timeout * 100
     protohost, protorequest = protoloader.load(protoloader.GAME)
-
-	account_handler:register({ REQUEST = REQUEST, RESPONSE = RESPONSE })
-	gameserver_handler:register({ REQUEST = REQUEST, RESPONSE = RESPONSE })
-	players_handler:register({ REQUEST = REQUEST, RESPONSE = RESPONSE })
 end
 
 function CMD.listen(fd, address)
@@ -110,7 +111,10 @@ function CMD.listen(fd, address)
 	    log.debugf("type = %s, name = %s, args = %s, response = %s", type, name, json.encode(args), response, err_response)
 	    local f = REQUEST[name]
 	    if (f) then
+			-- profile.start()
 	        local result = f(args)
+			-- local time = profile.stop()
+			-- log.debugf("Cost %s seconds", time)
 	        if result.errno then
 	            local msg = err_response(result)
 	            send_msg(fd, msg)
