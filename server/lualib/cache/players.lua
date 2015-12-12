@@ -3,8 +3,15 @@ local log = require("syslog")
 local databases = require("db.databases")
 require("framework")
 
-local cache = {}
+local cachedata = require "cachedata"
 
+------------------------------------------------------------
+
+local CACHE_KEY_PLAYERS = "players"
+
+------------------------------------------------------------
+
+local cache = {}
 
 function cache.getPlayerFromDatabase(uid)
 
@@ -66,5 +73,19 @@ function cache.getPlayerFromDatabase(uid)
     return player
 end
 
+function cache.getPlayer(uid)
+    if (uid == nil or uid <= 0) then
+        return nil
+    end
+
+    local key = CACHE_KEY_PLAYERS.."."..uid
+    local exists = cachedata.exists(key)
+    if (not exists) then
+        local player = getPlayerFromDatabase(uid)
+        cachedata.set(key, player)
+    end
+
+    return cachedata.get(key)
+end
 
 return cache
