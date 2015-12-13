@@ -81,7 +81,7 @@ player_names 1301 {    # 生成玩家队伍名称 - 1301
 
     }
     response {
-        names 0 : string # 名称数组
+        names 0 : *string # 名称数组
     }
 }
 

@@ -2,68 +2,103 @@ local skynet = require("skynet")
 local handler = require("agent.handler")
 local errorcode = require("protocols.errorcode")
 local validator = require("protocols.validator")
+local sharedata = require("sharedata")
 local databases = require("db.databases")
 local cache = require("cachedata")
 local playernamesCache = require("cache.playernames")
 local playerCache = require("cache.players")
 local log = require("syslog")
+require "Constants"
 
---------------------------------------------------------------
+-- Constants ------------------------------------------------------------
 
--- //return: -1参数错误; -3无缓存; 0正确; -2uid不存在
--- static int cache_player_get(int uid, s_player_t *s_player)
--- {
---
--- 	if(uid<=0 || !s_player) {
--- 		return -1;
--- 	}
---
--- 	if(g_cache_player_valid != 1) {
--- 		return -3;
--- 	}
---
--- 	int iret = 0;
---
--- 	if(memcache_get_data(g_cache_player, (void *)&uid, sizeof(int), 0, (void *)s_player) < 0) {
---
--- 		s_player_t *s_tmp = (s_player_t *)GCALLOC(1, sizeof(s_player_t));
--- 		s_tmp->uid = uid;
---
--- 		iret = get_player_data_from_db(uid, s_tmp);
--- 		if(iret == 0) {
---
--- 			if(memcache_append_data(g_cache_player, (void *)&s_tmp->uid, sizeof(int), (void *)s_tmp, sizeof(s_player_t)) < 0) {
--- 				JOB_LOGGING(LOG_ERROR, "add uid(%d) player data to cache error, uid:%d", s_tmp->uid, uid);
--- 				return -1;
--- 			}
---
--- 			memcpy((void *)s_player, (void *)s_tmp, sizeof(s_player_t));
--- 		}
--- 	}
---
--- 	return iret;
--- }
+local NEW_TEAM_NUM = 10
 
---------------------------------------------------------------
+-- Vars ------------------------------------------------------------
+
+local __team_names = nil
+local __system_params = nil
+
+-- Functions ------------------------------------------------------------
+
+local function getSystemParam()
+    if (__system_params == nil) then
+        __system_params = shareda.query("system_params")
+    end
+
+    return __system_params
+end
+
+local function getTeamNamesInfo()
+    if (__team_names == nil) then
+        __team_names = sharedata.query("team_names")
+    end
+
+    return __team_names
+end
+
+--获取初始黄金、银两、体力、元气等
+local function getSystemInitData()
+    local params = getSystemParam()
+
+    return {
+        gold = tonumber(params[SYSTEM_INIT_GOLD]) or SYSTEM_INIT_GOLD_V,
+        money = tonumber(params[SYSTEM_INIT_MONEY]) or SYSTEM_INIT_MONEY_V,
+        pneuma = tonumber(params[SYSTEM_INIT_PNEUMA]) or SYSTEM_INIT_PNEUMA_V,
+        strength = tonumber(params[SYSTEM_INIT_STRENGTH]) or SYSTEM_INIT_STRENGTH_V
+    }
+end
+
+local function insertPlayerDataToDatabase(uid, playername)
+    local initdata = getSystemInitData()
+    local sql = string.format([[
+    INSERT INTO zzb_player (Fuid, Fteam_name, Flevel, Fmoney, Fgift_gold, Ftotal_gift_gold, Fstrength, Fpneuma, Fcreate_time)
+					VALUES (%d, '%s', 1, %d, %d, %d, %d, %d, NOW())
+    ]], uid, playername, initdata.money, initdata.gold, initdata.strength, initdata.pneuma)
+
+    local db = databases:get("game")
+
+    local res = db:query(sql)
+    if (res.badresult) then
+        log.errf("Execute SQL: %s, Reason: %s, errno: %d, sqlstate: %d", sql, res.err, res.errno, res.sqlstate)
+        return
+    end
+
+    -- insert_db_sign_in(uid) -- TODO to finish this
+end
+
+-- Handlers ------------------------------------------------------------
 
 local REQUEST = {}
 handler = handler.new(REQUEST)
 
--- handler:init(function()
---     if (not cache.exists("player")) then
---         cache.register("player", "cache.player.get", "cache.player.update", "cache.player.remove")
---     end
---     if (not cache.exists("playernames")) then
---         cache.register("playernames", "cache.playernames.get", nil, nil)
---     end
--- end)
-
 function REQUEST.player_names()
-    local names = playernamesCache.getPlayerNames()
+    local playerNames = playernamesCache.getPlayerNames()
 
-    -- dump(names)
+    local allNames = getTeamNamesInfo()
 
-    return {names=nil}
+    math.randomseed(os.time())
+
+    local inum_new = 0
+    local newNames = {}
+    while (#newNames < NEW_TEAM_NUM) do
+
+        local irand_f = math.random(1, #allNames.first)
+        local irand_s = math.random(1, #allNames.second)
+        local irand_t = math.random(1, #allNames.third)
+
+        local first = allNames.first[irand_f]
+        local second = allNames.second[irand_s]
+        local third = allNames.third[irand_t]
+
+        local newName = string.format("%s%s%s", first, second, third)
+
+        if playerNames[newName] == nil then
+            table.insert(newNames, newName)
+        end
+    end
+
+    return { names = newNames }
 end
 
 function REQUEST.player_create(args)
@@ -82,16 +117,29 @@ function REQUEST.player_create(args)
     if (res and not res.badresult and #res > 0) then
         return { success = 1 }
     elseif (res.badresult) then
+        log.errf("Execute SQL: %s, Reason: %s, errno: %d, sqlstate: %d", sql, res.err, res.errno, res.sqlstate)
         return { success = 9 }
 --    elseif (keywords:containsIn(team_name) then -- TODO to finish the keyword system
 --        return { success = 2 }
-    else
-        return { success = 0 }
     end
+
+    local player = playerCache.getPlayerFromDatabase(uid)
+
+    if (player == nil) then
+        insertPlayerDataToDatabase(uid, team_name)
+    else
+        player.name = team_name
+        playerCache.savePlayer(player)
+    end
+
+    return { success = 0 }
 end
 
 function REQUEST.player_init(args)
     local characterId = args.characterId
+
+    playerCache.getPlayer()
+
 end
 
 function REQUEST.player_changeName(args)

@@ -5,7 +5,6 @@ local cachedata = require "cachedata"
 local databases = require "db.databases"
 local databaseConfig = require("config.database")
 
-local max_client = 64
 
 skynet.start(function()
     --local console = skynet.newservice("console")
@@ -36,6 +35,13 @@ skynet.start(function()
         session_timeout = 30, -- second
     })
 
+    local gamed = skynet.newservice("gamed")
+    skynet.call(loginmaster, "lua", "init", {
+        agentPoolSize = 1024,
+        host = "0.0.0.0",
+        port = 28888,
+        session_timeout = 30, -- second
+    })
     -- local watchdog = skynet.newservice("watchdog");
     -- skynet.call(watchdog, "lua", "start" {
     --     port = 8888,
