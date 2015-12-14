@@ -5,11 +5,11 @@ local socket = require "socket"
 
 local syslog = require "syslog"
 local protoloader = require "protoloader"
-local character_handler = require "agent.character_handler"
-local map_handler = require "agent.map_handler"
-local aoi_handler = require "agent.aoi_handler"
-local move_handler = require "agent.move_handler"
-local combat_handler = require "agent.combat_handler"
+-- local character_handler = require "agent.character_handler"
+-- local map_handler = require "agent.map_handler"
+-- local aoi_handler = require "agent.aoi_handler"
+-- local move_handler = require "agent.move_handler"
+-- local combat_handler = require "agent.combat_handler"
 
 
 local gamed = tonumber (...)
@@ -65,7 +65,7 @@ end
 
 local traceback = debug.traceback
 local REQUEST
-local function handle_request (name, args, response)
+local function handle_request (name, args, response, err_response)
 	local f = REQUEST[name]
 	if f then
 		local ok, ret = xpcall (f, traceback, args)
@@ -75,7 +75,11 @@ local function handle_request (name, args, response)
 		else
 			last_heartbeat_time = skynet.now ()
 			if response and ret then
-				send_msg (user_fd, response (ret))
+                if (ret.errno ~= nil) then
+                    send_msg (user_fd, err_response(ret))
+                else
+    				send_msg (user_fd, response (ret))
+                end
 			end
 		end
 	else

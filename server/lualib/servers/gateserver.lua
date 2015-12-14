@@ -46,7 +46,7 @@ function gateserver.start (handler)
 	function CMD.open (source, conf)
 		local addr = conf.address or "0.0.0.0"
 		local port = assert (tonumber (conf.port))
-		maxclient = conf.maxclient or 64
+		maxclient = conf.maxclient or 1024
 
 		syslog.noticef ("listen on %s:%d", addr, port)
 		socket = socketdriver.listen (addr, port)
