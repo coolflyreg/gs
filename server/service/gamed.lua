@@ -51,11 +51,11 @@ function gamed.auth (session, token)
 	return skynet.call (logind, "lua", "verify", session, token)
 end
 
-function gamed.login (fd, account)
-	local agent = online_account[account]
+function gamed.login (fd, login_result)
+	local agent = online_account[login_result.uid]
 	if agent then
-		log.warningf ("multiple login detected for account %d", account)
-		skynet.call (agent, "lua", "kick", account)
+		log.warningf ("multiple login detected for account %d", login_result.uid)
+		skynet.call (agent, "lua", "kick", login_result.uid)
 	end
 
 	-- if #pool == 0 then
@@ -66,9 +66,9 @@ function gamed.login (fd, account)
 	-- 	syslog.debugf ("agent(%d) assigned, %d remain in pool", agent, #pool)
 	-- end
     agent = agentPool:new()
-	online_account[account] = agent
+	online_account[login_result.uid] = agent
 
-	skynet.call (agent, "lua", "open", fd, account)
+	skynet.call (agent, "lua", "open", fd, login_result)
 	gameserver.forward (fd, agent)
 	return agent
 end

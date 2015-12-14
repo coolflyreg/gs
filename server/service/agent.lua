@@ -131,13 +131,13 @@ skynet.register_protocol {
 
 local CMD = {}
 
-function CMD.open (fd, account)
-	local name = string.format ("agent:%d", account)
+function CMD.open (fd, login_result)
+	local name = string.format ("agent:uid:%d", login_result.uid)
 	syslog.debug ("agent opened")
 
 	user = {
 		fd = fd,
-		account = account,
+		account = login_result,
 		REQUEST = {},
 		RESPONSE = {},
 		CMD = CMD,
