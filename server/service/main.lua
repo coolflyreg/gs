@@ -36,8 +36,8 @@ skynet.start(function()
     })
 
     local gamed = skynet.newservice("gamed")
-    skynet.call(loginmaster, "lua", "init", {
-        agentPoolSize = 1024,
+    skynet.call(gamed, "lua", "open", {
+        agentPoolSize = 12,
         host = "0.0.0.0",
         port = 28888,
         session_timeout = 30, -- second
