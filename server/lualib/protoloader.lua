@@ -1,6 +1,5 @@
 local sprotoloader = require "gssprotoloader"
 
-local proto = require("protocols.proto")
 
 local loader = {
     TYPES = 0,
@@ -13,6 +12,7 @@ local loader = {
 }
 
 function loader.init ()
+    local proto = require("protocols.proto")
     sprotoloader.save (proto.types, loader.TYPES)
     sprotoloader.save (proto.c2s, loader.C2S)
     sprotoloader.save (proto.s2c, loader.S2C)
