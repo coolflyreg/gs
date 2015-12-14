@@ -51,7 +51,7 @@ function class(classname, super)
     if superType == "function" or (super and super.__ctype == 1) then
         -- inherited from native C++ Object
         cls = {}
-        
+
         if superType == "table" then
             -- copy fields from super
             for k,v in pairs(super) do cls[k] = v end
@@ -61,7 +61,7 @@ function class(classname, super)
             cls.__create = super
             cls.ctor = function() end
         end
-    
+
         cls.__cname = classname
         cls.__ctype = 1
 
@@ -101,7 +101,7 @@ end
 
 function getClassName(obj)
     local t = type(obj)
-    
+
     if t == "table" then
         local mt = getmetatable(obj)
         while mt and mt.__index do
@@ -109,9 +109,9 @@ function getClassName(obj)
             mt = mt.super
         end
         return ""
-        
+
         elseif t == "userdata" then
-        
+
         else
         return ""
     end
@@ -426,10 +426,10 @@ end
 --[[
  Copyright (c) 2006-2007, Kyle Smith
  All rights reserved.
- 
+
  Redistribution and use in source and binary forms, with or without
  modification, are permitted provided that the following conditions are met:
- 
+
  * Redistributions of source code must retain the above copyright notice,
  this list of conditions and the following disclaimer.
  * Redistributions in binary form must reproduce the above copyright
@@ -438,7 +438,7 @@ end
  * Neither the name of the author nor the names of its contributors may be
  used to endorse or promote products derived from this software without
  specific prior written permission.
- 
+
  THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
  AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
  IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -469,7 +469,7 @@ end
 local function utf8charbytes (s, i)
 	-- argument defaults
 	i = i or 1
-    
+
 	-- argument checking
 	if type(s) ~= "string" then
 		error("bad argument #1 to 'utf8charbytes' (string expected, got ".. type(s).. ")")
@@ -477,39 +477,39 @@ local function utf8charbytes (s, i)
 	if type(i) ~= "number" then
 		error("bad argument #2 to 'utf8charbytes' (number expected, got ".. type(i).. ")")
 	end
-    
+
 	local c = s:byte(i)
-    
+
 	-- determine bytes needed for character, based on RFC 3629
 	-- validate byte 1
 	if c > 0 and c <= 127 then
 		-- UTF8-1
 		return 1
-        
+
         elseif c >= 194 and c <= 223 then
 		-- UTF8-2
 		local c2 = s:byte(i + 1)
-        
+
 		if not c2 then
 			error("UTF-8 string terminated early")
 		end
-        
+
 		-- validate byte 2
 		if c2 < 128 or c2 > 191 then
 			error("Invalid UTF-8 character")
 		end
-        
+
 		return 2
-        
+
         elseif c >= 224 and c <= 239 then
 		-- UTF8-3
 		local c2 = s:byte(i + 1)
 		local c3 = s:byte(i + 2)
-        
+
 		if not c2 or not c3 then
 			error("UTF-8 string terminated early")
 		end
-        
+
 		-- validate byte 2
 		if c == 224 and (c2 < 160 or c2 > 191) then
 			error("Invalid UTF-8 character")
@@ -518,24 +518,24 @@ local function utf8charbytes (s, i)
             elseif c2 < 128 or c2 > 191 then
 			error("Invalid UTF-8 character")
 		end
-        
+
 		-- validate byte 3
 		if c3 < 128 or c3 > 191 then
 			error("Invalid UTF-8 character")
 		end
-        
+
 		return 3
-        
+
         elseif c >= 240 and c <= 244 then
 		-- UTF8-4
 		local c2 = s:byte(i + 1)
 		local c3 = s:byte(i + 2)
 		local c4 = s:byte(i + 3)
-        
+
 		if not c2 or not c3 or not c4 then
 			error("UTF-8 string terminated early")
 		end
-        
+
 		-- validate byte 2
 		if c == 240 and (c2 < 144 or c2 > 191) then
 			error("Invalid UTF-8 character")
@@ -544,19 +544,19 @@ local function utf8charbytes (s, i)
             elseif c2 < 128 or c2 > 191 then
 			error("Invalid UTF-8 character")
 		end
-		
+
 		-- validate byte 3
 		if c3 < 128 or c3 > 191 then
 			error("Invalid UTF-8 character")
 		end
-        
+
 		-- validate byte 4
 		if c4 < 128 or c4 > 191 then
 			error("Invalid UTF-8 character")
 		end
-        
+
 		return 4
-        
+
         else
 		error("Invalid UTF-8 character")
 	end
@@ -568,16 +568,16 @@ local function utf8len (s)
 	if type(s) ~= "string" then
 		error("bad argument #1 to 'utf8len' (string expected, got ".. type(s).. ")")
 	end
-    
+
 	local pos = 1
 	local bytes = s:len()
 	local len = 0
-    
+
 	while pos <= bytes do
 		len = len + 1
 		pos = pos + utf8charbytes(s, pos)
 	end
-    
+
 	return len
 end
 
@@ -586,39 +586,39 @@ end
 local function utf8sub (s, i, j)
 	-- argument defaults
 	j = j or -1
-    
+
 	local pos = 1
 	local bytes = s:len()
 	local len = 0
-    
+
 	-- only set l if i or j is negative
 	local l = (i >= 0 and j >= 0) or s:utf8len()
 	local startChar = (i >= 0) and i or l + i + 1
 	local endChar   = (j >= 0) and j or l + j + 1
-    
+
 	-- can't have start before end!
 	if startChar > endChar then
 		return ""
 	end
-    
+
 	-- byte offsets to pass to string.sub
 	local startByte, endByte = 1, bytes
-    
+
 	while pos <= bytes do
 		len = len + 1
-        
+
 		if len == startChar then
 			startByte = pos
 		end
-        
+
 		pos = pos + utf8charbytes(s, pos)
-        
+
 		if len == endChar then
 			endByte = pos - 1
 			break
 		end
 	end
-    
+
 	return s:sub(startByte, endByte)
 end
 
@@ -632,21 +632,21 @@ local function utf8replace (s, mapping)
 	if type(mapping) ~= "table" then
 		error("bad argument #2 to 'utf8replace' (table expected, got ".. type(mapping).. ")")
 	end
-    
+
 	local pos = 1
 	local bytes = s:len()
 	local charbytes
 	local newstr = ""
-    
+
 	while pos <= bytes do
 		charbytes = utf8charbytes(s, pos)
 		local c = s:sub(pos, pos + charbytes - 1)
-        
+
 		newstr = newstr .. (mapping[c] or c)
-        
+
 		pos = pos + charbytes
 	end
-    
+
 	return newstr
 end
 
@@ -667,26 +667,26 @@ local function utf8reverse (s)
 	if type(s) ~= "string" then
 		error("bad argument #1 to 'utf8reverse' (string expected, got ".. type(s).. ")")
 	end
-    
+
 	local bytes = s:len()
 	local pos = bytes
 	local charbytes
 	local newstr = ""
-    
+
 	while pos > 0 do
 		c = s:byte(pos)
 		while c >= 128 and c <= 191 do
 			pos = pos - 1
 			c = s:byte(pos)
 		end
-        
+
 		charbytes = utf8charbytes(s, pos)
-        
+
 		newstr = newstr .. s:sub(pos, pos + charbytes - 1)
-        
+
 		pos = pos - 1
 	end
-    
+
 	return newstr
 end
 
@@ -756,7 +756,7 @@ function string.isNilOrEmpty(str)
     str = tostring(str)
     str = string.trim(str)
     if (str == "") then return true end
-    
+
     return false
 end
 
@@ -819,7 +819,7 @@ function string.wrap(str, length)
     local index = 1
     local strLength = string.utf8len(str)
     local tmp
-    
+
     while (index <= strLength) do
         tmp = string.utf8sub(str, index, index + length - 1)
         finalStr = finalStr..tmp
@@ -828,7 +828,7 @@ function string.wrap(str, length)
             finalStr = finalStr.."\n"
         end
     end
-    
+
     return finalStr
 end
 
@@ -838,7 +838,7 @@ end
 
 function existDelegate(tbl, funcName)
     local newFuncName = getDelegateFuncName(funcName)
-    
+
     return (tbl[newFuncName] ~= nil)
 end
 
@@ -850,13 +850,13 @@ function newDelegate(tbl, funcName, func)
         --cclog("Can't create delegate cause table does not contain given function '"..funcName.."'")
         return
     end
-    
+
     if (existDelegate(tbl, funcName)) then return end
-    
+
     local newFuncName = getDelegateFuncName(funcName)
-    
+
     tbl[newFuncName] = tbl[funcName]
-    
+
     if (func == nil) then
         --cclog("create new func")
         tbl[funcName] = function(...)
@@ -866,7 +866,7 @@ function newDelegate(tbl, funcName, func)
         --cclog("create new func finished")
     else
         tbl[funcName] = func
-    
+
         return tbl[funcName]
     end
 
@@ -878,7 +878,7 @@ function callDelegate(tbl, funcName, ...)
     if (tbl == nil) then print("The table can't be nil.") return end
     if (tbl[newFuncName] == nil) then print("There is no funcName ", funcName, " in table") return end
     tbl[newFuncName](tbl, ...)
-    
+
 end
 
 function schedule(node, callback, delay)
@@ -910,7 +910,7 @@ function jsonDecode(value)
     else
         return json.decode(value)
     end
-    
+
 end
 
 function jsonEncode(value)
@@ -940,4 +940,13 @@ function getFormattedTime(time)
     local hour = math.floor(time / 3600)
     --print("min : ", min, "sec : ", sec, "hour : ", hour)
     return string.format("%d:%02d:%02d", hour, min, sec)--hour..":"..self:showTimeFormat(min)..":"..self:showTimeFormat(sec)
+end
+
+function md5String(md5code)
+    local index = 1
+    local buffer = ""
+    for index = 1, string.len(md5code) do
+        buffer = buffer..string.format("%02x", string.byte(md5code, index))
+    end
+    return buffer
 end
