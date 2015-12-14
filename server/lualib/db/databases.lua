@@ -1,6 +1,5 @@
 local skynet = require("skynet")
 local log = require "syslog"
-local mysql = require "mysql"
 
 local service
 
