@@ -20,6 +20,7 @@ function CMD.init(config)
     local port = assert(tonumber(config.port))
     local sock = socket.listen(host, port)
 
+	log.noticef ("listen on %s:%d", host, port)
     local balance = 1
     socket.start(sock, function(fd, address)
         local slave = loginslaveds[balance]
