@@ -590,15 +590,15 @@ static void json_append_number(lua_State *l, json_config_t *cfg,
                                strbuf_t *json, int lindex)
 {
 	int len;
-#if LUA_VERSION_NUM >= 503
-    if (lua_isinteger(l, lindex)) {
-        lua_Integer num = lua_tointeger(l, lindex);
-        strbuf_ensure_empty_length(json, FPCONV_G_FMT_BUFSIZE); 
-        len = lua_integer2str(strbuf_empty_ptr(json), num);
-        strbuf_extend_length(json, len);
-        return;
-    }
-#endif
+// #if LUA_VERSION_NUM >= 503
+//     if (lua_isinteger(l, lindex)) {
+//         lua_Integer num = lua_tointeger(l, lindex);
+//         strbuf_ensure_empty_length(json, FPCONV_G_FMT_BUFSIZE);
+//         len = lua_integer2str(strbuf_empty_ptr(json), num, ivalue(num));
+//         strbuf_extend_length(json, len);
+//         return;
+//     }
+// #endif
 
     double num = lua_tonumber(l, lindex);
 
