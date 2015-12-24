@@ -4,7 +4,7 @@ local handler = require("agent.handler")
 local errorcode = require("protocols.errorcode")
 local validator = require("protocols.validator")
 local databases = require("db.databases")
-local json = require("cjson")
+
 require "framework"
 
 local REQUEST = {}

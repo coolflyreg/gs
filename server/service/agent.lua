@@ -5,11 +5,17 @@ local socket = require "socket"
 
 local syslog = require "syslog"
 local protoloader = require "protoloader"
--- local character_handler = require "agent.character_handler"
--- local map_handler = require "agent.map_handler"
--- local aoi_handler = require "agent.aoi_handler"
--- local move_handler = require "agent.move_handler"
--- local combat_handler = require "agent.combat_handler"
+
+
+local beasts_handler = require "agent.beasts_handler"
+local contests_handler = require "agent.contests_handler"
+local equipments_handler = require "agent.equipments_handler"
+local formations_handler = require "agent.formations_handler"
+local fragments_handler = require "agent.fragments_handler"
+local gameserver_handler = require "agent.gameserver_handler"
+local players_handler = require "agent.players_handler"
+local skills_handler = require "agent.skills_handler"
+local socials_handler = require "agent.socials_handler"
 
 
 local gamed = tonumber (...)
@@ -160,22 +166,6 @@ function CMD.close ()
 	if user then
 		account = user.account
 
-		if user.map then
-			skynet.call (user.map, "lua", "character_leave")
-			user.map = nil
-			map_handler:unregister (user)
-			aoi_handler:unregister (user)
-			move_handler:unregister (user)
-			combat_handler:unregister (user)
-		end
-
-		if user.world then
-			skynet.call (user.world, "lua", "character_leave", user.character.id)
-			user.world = nil
-		end
-
-		character_handler.save (user.character)
-
 		user = nil
 		user_fd = nil
 		REQUEST = nil
@@ -188,26 +178,6 @@ function CMD.kick ()
 	error ()
 	syslog.debug ("agent kicked")
 	skynet.call (gamed, "lua", "kick", skynet.self (), user_fd)
-end
-
-function CMD.world_enter (world)
-	local name = string.format ("agent:%d:%s", user.character.id, user.character.general.name)
-
-	character_handler.init (user.character)
-
-	user.world = world
-	character_handler:unregister (user)
-
-	return user.character.general.map, user.character.movement.pos
-end
-
-function CMD.map_enter (map)
-	user.map = map
-
-	map_handler:register (user)
-	aoi_handler:register (user)
-	move_handler:register (user)
-	combat_handler:register (user)
 end
 
 skynet.start (function ()
