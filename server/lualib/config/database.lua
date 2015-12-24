@@ -6,7 +6,7 @@ config.account = {
     port = 3306,
     database = "zzb_user_center",
     user = "root",
-    password = "root",
+    password = "87610046",
     max_packet_size = 1024 * 1024
 }
 
@@ -16,7 +16,7 @@ config.gameinfo = {
     port = 3306,
     database = "zzb_game_info",
     user = "root",
-    password = "root",
+    password = "87610046",
     max_packet_size = 1024 * 1024
 }
 
@@ -26,7 +26,7 @@ config.game = {
     port = 3306,
     database = "zzb_game",
     user = "root",
-    password = "root",
+    password = "87610046",
     max_packet_size = 1024 * 1024
 }
 
@@ -36,7 +36,7 @@ config.pay = {
     port = 3306,
     database = "zzb_pay",
     user = "root",
-    password = "root",
+    password = "87610046",
     max_packet_size = 1024 * 1024
 }
 
